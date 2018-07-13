@@ -1,0 +1,73 @@
+﻿@model DataEntities.Urun
+
+
+
+@{
+    ViewBag.Title = "UrunOlustur";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
+
+<body class="skin-default-dark fixed-layout">
+
+
+    <div class="container body-content">
+
+
+        @using (Html.BeginForm("UrunOlustur", "Urun", FormMethod.Post))
+        {
+
+            @Html.ValidationSummary(true)
+
+            <div class="card card-primary">
+                <div class="card-header">
+                    <h3 class="card-title">Ürün Kaydı</h3>
+                </div>
+                <form role="form">
+                    <div class="card-body">
+                        <label class="control-label col-md-2">
+                            KATEGORİ GİRİŞİ
+                        </label>
+                        <div class="form-group">
+                            @Html.DropDownListFor(model => model.KategoriID, ViewBag.KategoriListesi as IEnumerable<SelectListItem>, "Lütfen Seçiniz",
+        new { @class = "form-control" })
+
+
+
+
+                        </div>
+                        <label class="control-label col-md-2">
+                            ÜRÜN GİRİŞİ
+                        </label>
+                        <div class="form-group">
+                            @Html.TextBoxFor(model => model.UrunAdi, new { @class = "form-control", @placeholder = "UrunAdi" })
+                            @Html.ValidationMessageFor(model => model.UrunAdi)
+                        </div>
+
+
+                    </div>
+                    <!-- /.card-body -->
+                    <div class="card-footer">
+
+                        <button type="submit" class="btn btn-primary">KAYDET</button>
+                    </div>
+                </form>
+
+            </div>
+
+
+
+
+
+
+
+        }
+    </div>
+
+
+
+</body>

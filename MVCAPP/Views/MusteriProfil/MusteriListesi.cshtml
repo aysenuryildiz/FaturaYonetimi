@@ -1,0 +1,83 @@
+﻿@model DataEntities.MusteriProfil
+@using DataEntities
+@{
+    ViewBag.Title = "MusteriListesi";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    FaturaYonetimiDbModel _entity = new FaturaYonetimiDbModel();
+    var list = _entity.MusteriProfil.ToList();
+}
+
+
+
+
+
+<body class="skin-default-dark fixed-layout">
+
+    <div class="card card-primary">
+        <div class="card-header">
+            <h3 class="card-title">Müşteri Listesi</h3>
+        </div>
+        <!-- /.card-header -->
+        <div class="card-body">
+            <div id="example1_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4">
+                <div class="row"><div class="col-sm-12 col-md-6"><div class="dataTables_length" id="example1_length"><label>Search:<input type="search" class="form-control form-control-sm" placeholder="" aria-controls="example1"></label></div></div></div><div class="row">
+                    <div class="col-sm-12">
+                        <table id="example1" class="table table-bordered table-striped dataTable" role="grid" aria-describedby="example1_info">
+                            <thead>
+                                <tr role="row">
+                                    <th rowspan="1" colspan="1" aria-sort="ascending" style="width: 144px;">Fatura No</th>
+                                    <th rowspan="1" colspan="1" aria-sort="ascending" style="width: 144px;">Ad</th>
+                                    <th rowspan="1" colspan="1" aria-sort="ascending" style="width: 144px;">Soyad</th>
+                                    <th rowspan="1" colspan="1" aria-sort="ascending" style="width: 144px;">Adres</th>
+                                    <th rowspan="1" colspan="1" aria-sort="ascending" style="width: 144px;">Telefom</th>
+                                    <th rowspan="1" colspan="1" aria-sort="ascending" style="width: 144px;">Alacak Miktarı</th>
+                                    <th rowspan="1" colspan="1" aria-sort="ascending" style="width: 144px;">Borç Miktarı</th>
+
+                            </thead>
+                            <tbody>
+                                @if (list == null)
+                                {
+                                    <tr>Sistemde Kayıtlı Ürün Bulunmamaktadır..</tr>
+                                }
+                                else
+                                {
+                                    foreach (var item in list)
+                                    {
+                                        <tr>
+
+
+
+                                            <td>@item.ID</td>
+                                            <td>@item.Ad</td>
+                                            <td>@item.Soyad</td>
+                                            <td>@item.Adres</td>
+                                            <td>@item.Telefon</td>
+                                            <td>@item.Alacak</td>
+                                            <td>@item.Borc</td>
+
+
+                                            <td>
+
+                                                @Html.ActionLink("SİL", "MusteriSil", new { id = item.ID })
+
+
+
+
+
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                            </tbody>
+
+
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+</body>

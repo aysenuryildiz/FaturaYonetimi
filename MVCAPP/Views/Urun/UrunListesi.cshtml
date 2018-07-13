@@ -1,0 +1,77 @@
+﻿@model DataEntities.Urun
+@using DataEntities;
+@{
+    ViewBag.Title = "UrunListesi";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    FaturaYonetimiDbModel db = new FaturaYonetimiDbModel();
+    var list = db.Urun.ToList();
+
+}
+<body class="skin-default-dark fixed-layout">
+   
+            <div class="card card-primary">
+                <div class="card-header">
+                    <h3 class="card-title">Ürün Listesi</h3>
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body">
+                    <div id="example1_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4">
+                        <div class="row"><div class="col-sm-12 col-md-6"><div class="dataTables_length" id="example1_length">
+                            @*<label>Search:   @using (Html.BeginForm("UrunListesi", "Urun", FormMethod.Get))
+                                              {
+
+                                                  @Html.TextBox("searching") <input type="submit" value="Search" />
+
+                                              }</label>*@
+                               </div>
+                             </div>
+                            </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <table id="example1" class="table table-bordered table-striped dataTable" role="grid" aria-describedby="example1_info">
+                                    <thead>
+                                        <tr role="row">
+                                            <th rowspan="1" colspan="1" aria-sort="ascending" style="width: 144px;">Ürün ID</th>
+                                            @*<th rowspan="1" colspan="1" aria-sort="ascending" style="width: 144px;">Kategori Adı</th>*@
+                                            <th rowspan="1" colspan="1" aria-sort="ascending" style="width: 144px;">Ürün Adı</th>
+
+
+                                    </thead>
+                                    <tbody>
+                                        @if (list == null)
+                                        {
+                                            <tr>Sistemde Kayıtlı Ürün Bulunmamaktadır..</tr>
+                                        }
+                                        else
+                                        {
+                                            foreach (var item in list)
+                                            {
+                                                <tr>
+                                                    <td>@item.ID</td>
+                                                    <td>@item.Kategori.KategoriAd</td>
+                                                    <td>@item.UrunAdi</td>
+
+
+                                                    <td>
+                                                        @Html.ActionLink("SİL", "UrunSil", new { id = item.ID })
+                                                        @*@Html.ActionLink("GÜNCELLE", "UpdateStok", new { id = item.ID })*@
+
+
+
+
+                                                    </td>
+                                                </tr>
+                                            }
+                                        }
+                                    </tbody>
+
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+      
+</body>
