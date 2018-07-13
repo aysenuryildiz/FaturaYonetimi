@@ -49,12 +49,14 @@
   <ItemGroup>
     <Compile Include="FaturaArguman.cs" />
     <Compile Include="Fatura_BLL.cs" />
+    <Compile Include="KeyValueModelHelper.cs" />
     <Compile Include="Kullanici_BLL.cs" />
     <Compile Include="Musteri_BLL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SirketProfil_BLL.cs" />
     <Compile Include="StokHareketleri_BLL.cs" />
     <Compile Include="StokTakibi_BLL.cs" />
+    <Compile Include="StructManager.cs" />
     <Compile Include="Urun_BLL.cs" />
   </ItemGroup>
   <ItemGroup>

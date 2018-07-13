@@ -7,13 +7,11 @@ namespace BLL
     public class StokHareketleri_BLL
     {
         StokHareketleri_DAL StokHareketleriDAL;
-
         public StokHareketleri_BLL()
         {
             StokHareketleriDAL = new StokHareketleri_DAL();
         }
-        //viewden aldığı ürünleri stokhareketlerine ekleme 
-        public void StokHareketleriKaydet(ICollection<StokHareketleri> stokHareketleriListesi, FaturaYonetimiDbModel _entity)
+        public void StokHareketleriKaydet(ICollection<StokHareketleri> stokHareketleriListesi, FaturaYonetimiDbModel db)
         {
             foreach (var item in stokHareketleriListesi)
             {
@@ -24,7 +22,7 @@ namespace BLL
                 stokHareketleri.BirimFiyat = item.BirimFiyat;
                 stokHareketleri.KdvMiktar = item.KdvMiktar;
 
-                StokHareketleriDAL.Add(stokHareketleri, _entity);
+                StokHareketleriDAL.Add(stokHareketleri, db);
             }
         }
     }

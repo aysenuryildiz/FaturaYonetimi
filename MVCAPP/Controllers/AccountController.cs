@@ -21,17 +21,17 @@ namespace MVCAPP.Controllers
         {
             return View();
         }
+
         [HttpPost]
         public ActionResult Login(LoginModel model, string returnUrl)
         {
-            Kullanici_BLL kullanici_BLL = new Kullanici_BLL();
-
-         
             if (ModelState.IsValid)
             {
                 try
                 {
-                    if (kullanici_BLL.KullaniciKontrolü(model))
+                    Kullanici_BLL kullanici_BLL = new Kullanici_BLL();
+
+                    if(kullanici_BLL.KullaniciKontrolü(model))
                     {
                         new UserAuth().SignIn(model, Authentication);
                         return RedirectToAction("Index", "Home");
@@ -44,7 +44,7 @@ namespace MVCAPP.Controllers
                 }
                 catch (Exception e)
                 {
-
+                    throw;
                 }
                 //new UserAuth().SignIn(model, Authentication);
                 //SignIn(model);
@@ -54,10 +54,8 @@ namespace MVCAPP.Controllers
                 //
 
             }
-            //ViewBag.Message = "Kullanıcı Adı veya Şifre  Hatalı";
             return View(model);
         }
-
 
         public ActionResult LogOut()
         {
@@ -65,6 +63,5 @@ namespace MVCAPP.Controllers
             return RedirectToAction("Login");
 
         }
-        //public void ggg() { }
     }
 }

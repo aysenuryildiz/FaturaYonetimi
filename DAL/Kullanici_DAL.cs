@@ -1,6 +1,4 @@
-﻿
-
-using DataEntities;
+﻿using DataEntities;
 using System;
 using System.Linq;
 
@@ -8,7 +6,7 @@ namespace DAL
 {
     public class Kullanici_DAL
     {
-        public bool KullaniciKontrolü(string email,string password)
+        public bool KullaniciKontrolü(string email, string password)
         {
             using (var db = new FaturaYonetimiDbModel())
             {
@@ -18,8 +16,6 @@ namespace DAL
                     {
                         return true;
                     }
-
-
                     return false;
                 }
                 catch (Exception e)

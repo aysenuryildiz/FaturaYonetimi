@@ -1,10 +1,7 @@
 ﻿using DAL;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using DataEntities;
+using System.Linq;
 
 namespace BLL
 {
@@ -15,28 +12,24 @@ namespace BLL
         {
             urunDAL = new Urun_DAL();
         }
-
-        public bool UrunKaydet(Urun _objurun)
+        public void UrunKaydet(Urun urunModel)
         {
-            return urunDAL.UrunKaydet(_objurun);
+            urunDAL.Add(urunModel);
         }
         public bool UrunSil(int ID)
         {
-
-
-
             using (var db = new FaturaYonetimiDbModel())
             {
-                var urun = db.Urun.Where(x => x.ID == ID).FirstOrDefault();
+                var urun = urunDAL.GetByID(ID, db);
                 var stok_urunID = urun.ID;
+
                 try
                 {
-                    if (db.StokHareketleri.Any(x => x.UrunID == stok_urunID))
+                    if (UrunSatisKontrolü(stok_urunID, db))
                     {
+                        urunDAL.Delete(urun, db);
                         return false;
                     }
-
-                    urunDAL.Delete(urun, db);
                     return true;
                 }
                 catch (Exception e)
@@ -46,21 +39,18 @@ namespace BLL
             }
 
         }
-        public bool KayitVarMi(Urun output)
+        public bool UrunKayitVarMi(Urun urunModel)
         {
-            var katID = output.KategoriID;
-            var urunAdi = output.UrunAdi;
-           
-
+            var kategoriID = urunModel.KategoriID;
+            var urunAdi = urunModel.UrunAdi;
             using (var db = new FaturaYonetimiDbModel())
             {
                 try
                 {
-                    if (db.Urun.Any(x => x.KategoriID == katID && x.UrunAdi == urunAdi))
+                    if (db.Urun.Any(x => x.KategoriID == kategoriID && x.UrunAdi == urunAdi))
                     {
                         return false;
                     }
-
                     return true;
                 }
                 catch (Exception e)
@@ -69,8 +59,22 @@ namespace BLL
                 }
             }
         }
+        public bool UrunSatisKontrolü(int stok_urunID, FaturaYonetimiDbModel db)
+        {
+            if (db.StokHareketleri.Any(x => x.UrunID == stok_urunID))
+            {
+                return false;
+            }
+            return true;
+        }
+        public void UrunListesi()
+        {
+            Kategori kategoriID = new Kategori();
+            using (var db = new FaturaYonetimiDbModel())
+            {
+            }
 
-
-
+            urunDAL.GetList();
+        }
     }
 }

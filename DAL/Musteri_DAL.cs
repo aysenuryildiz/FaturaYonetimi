@@ -20,27 +20,27 @@ namespace DAL
                     throw;
                 }
             }
-                
+
 
         }
-        public void Delete(MusteriProfil model, FaturaYonetimiDbModel _entity)
+        public void Delete(MusteriProfil model, FaturaYonetimiDbModel db)
         {
-            var ent = _entity.Entry(model);
+            var ent = db.Entry(model);
             ent.State = System.Data.Entity.EntityState.Deleted;
-            _entity.SaveChanges();
+            db.SaveChanges();
 
         }
-        public MusteriProfil GetByID(int id, FaturaYonetimiDbModel _entity)
+        public MusteriProfil GetByID(int id, FaturaYonetimiDbModel db)
         {
-            var musteriModel = _entity.MusteriProfil.Where(x => x.ID == id).FirstOrDefault();
+            var musteriModel = db.MusteriProfil.Where(x => x.ID == id).FirstOrDefault();
             return musteriModel;
 
         }
-        public void Update(MusteriProfil model, FaturaYonetimiDbModel entity)
+        public void Update(MusteriProfil model, FaturaYonetimiDbModel db)
         {
             try
             {
-                var ent = entity.Entry(model);
+                var ent = db.Entry(model);
                 ent.State = System.Data.Entity.EntityState.Modified;
 
             }
@@ -52,26 +52,7 @@ namespace DAL
             }
 
         }
-        public bool MusteriKontrolü(int id)
-        {
-            using (var db = new FaturaYonetimiDbModel())
-            {
-                try
-                {
-                    if (db.Fatura.Any(x => x.MusteriD == id))
-                    {
-                        return false;
-                    }
-                    return true;
-                }
-                catch (Exception e)
-                {
-                    throw;
-                }
-            }
-        }
-
-
+      
     }
 }
 

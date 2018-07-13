@@ -11,22 +11,21 @@ namespace BLL
         {
             musteriDAL = new Musteri_DAL();
         }
-        public void MusteriKaydet(MusteriProfil _objmusteri)
+        public void MusteriKaydet(MusteriProfil musteriProfil)
         {
-                           musteriDAL.Add(_objmusteri);
+            musteriDAL.Add(musteriProfil);
         }
         public bool MusteriSil(int ID)
         {
             using (var db = new FaturaYonetimiDbModel())
             {
-                var musteri = MusteriGetir(ID,db);
-                var fatura_musteriID = musteri.ID;
-
+                var musteriModel = MusteriGetir(ID, db);
+                var faturaModel_musteriID = musteriModel.ID;
                 try
                 {
-                    if (musteriDAL.MusteriKontrolü(ID))
+                    if (FaturaMusteriKontrolü(faturaModel_musteriID))
                     {
-                        musteriDAL.Delete(musteri, db);
+                        musteriDAL.Delete(musteriModel, db);
                         return false;
                     }
                     return true;
@@ -36,41 +35,27 @@ namespace BLL
                     throw new Exception("There was a problem saving this record: " + e.Message);
                 }
             }
-
-
-
         }
-        public MusteriProfil MusteriGetir(int id, FaturaYonetimiDbModel _entity)
+        public MusteriProfil MusteriGetir(int id, FaturaYonetimiDbModel db)
         {
-            MusteriProfil musteriProfil = musteriDAL.GetByID(id, _entity);
+            MusteriProfil musteriProfil = musteriDAL.GetByID(id, db);
             return musteriProfil;
 
         }
-        public void MusteriAlacakBorcDurumu(Fatura model, int musteri_id, FaturaYonetimiDbModel _entity)
+        public void MusteriAlacakBorcDurumu(Fatura model, int musteri_id, FaturaYonetimiDbModel db)
         {
             MusteriProfil musteriProfil = new MusteriProfil();
-
-            musteriProfil = MusteriGetir(musteri_id, _entity);
+            musteriProfil = MusteriGetir(musteri_id, db);
 
             if (model.FaturaTip == "ALIS")
             {
-
-
                 musteriProfil.Alacak = musteriProfil.Alacak + model.GenelToplam;
-
             }
             else
             {
                 musteriProfil.Borc = musteriProfil.Borc + model.GenelToplam;
-
-
             }
-
-            musteriDAL.Update(musteriProfil, _entity);
-
-
-
-
+            musteriDAL.Update(musteriProfil, db);
         }
         public bool KayitVarMi(MusteriProfil output)
         {
@@ -95,8 +80,24 @@ namespace BLL
                 }
             }
         }
-
-
+        public bool FaturaMusteriKontrolü(int id)
+        {
+            using (var db = new FaturaYonetimiDbModel())
+            {
+                try
+                {
+                    if (db.Fatura.Any(x => x.MusteriD == id))
+                    {
+                        return false;
+                    }
+                    return true;
+                }
+                catch (Exception e)
+                {
+                    throw;
+                }
+            }
+        }
         //public Dictionary<string, string> Dogrula(MusteriProfil musteri)
         //{
         //    var result = new Dictionary<string, string>();

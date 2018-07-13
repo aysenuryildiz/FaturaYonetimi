@@ -53,6 +53,7 @@
     <Compile Include="FaturaDTOtoMain.cs" />
     <Compile Include="FaturaYonetimiDbModel.cs" />
     <Compile Include="Kategori.cs" />
+    <Compile Include="KeyValueModel.cs" />
     <Compile Include="Kullanici.cs" />
     <Compile Include="LoginModel.cs" />
     <Compile Include="MusteriProfil.cs" />

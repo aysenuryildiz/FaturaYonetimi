@@ -22,6 +22,7 @@ namespace DataEntities
         public virtual DbSet<StokTakibi> StokTakibi { get; set; }
         public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<Urun> Urun { get; set; }
+        public virtual DbSet<KeyValueModel> KeyValueModel { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

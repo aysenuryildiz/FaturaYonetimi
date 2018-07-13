@@ -1,45 +1,43 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Data.SqlClient;
+﻿using System.Linq;
 using DataEntities;
 
 namespace DAL
 {
     public class Urun_DAL
     {
-        public bool UrunKaydet(Urun _objurun)
+        public void Add(Urun urunModel)
         {
-            using (FaturaYonetimiDbModel _entity = new FaturaYonetimiDbModel())
+            using (var db = new FaturaYonetimiDbModel())
             {
                 try
                 {
-                    _objurun.ID = 1;
-
-                    _entity.Urun.Add(_objurun);
-                    _entity.SaveChanges();
+                    db.Urun.Add(urunModel);
+                    db.SaveChanges();
                 }
                 catch
                 {
-
                     throw;
                 }
+            }
+        }
+        public void Delete(Urun model, FaturaYonetimiDbModel db)
+        {
+            var ent = db.Entry(model);
+            ent.State = System.Data.Entity.EntityState.Deleted;
+            db.SaveChanges();
 
+        }
+        public Urun GetByID(int id, FaturaYonetimiDbModel db)
+        {
+            var urunModel = db.Urun.Where(x => x.ID == id).FirstOrDefault();
+            return urunModel;
+        }
+        public void GetList()
+        {
+            using (var db = new FaturaYonetimiDbModel())
+            {
 
             }
-
-            return true;
         }
-        public void Delete(Urun model, FaturaYonetimiDbModel _entity)
-        {
-            var ent = _entity.Entry(model);
-            ent.State = System.Data.Entity.EntityState.Deleted;
-            _entity.SaveChanges();
-
-        }
-
-     
     }
 }

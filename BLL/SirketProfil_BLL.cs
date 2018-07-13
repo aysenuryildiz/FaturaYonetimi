@@ -9,13 +9,10 @@ namespace BLL
         {
             sirketDAL = new SirketProfil_DAL();
         }
-
-        public SirketProfil SirketGetir(int id, FaturaYonetimiDbModel _entity)
+        public SirketProfil SirketGetir(int id, FaturaYonetimiDbModel db)
         {
-            SirketProfil sirketProfil = sirketDAL.GetByID(id, _entity);
+            SirketProfil sirketProfil = sirketDAL.GetByID(id, db);
             return sirketProfil;
-
-
         }
         //public void SirketAlacakBorcDurumu(Fatura model, int sirket_id, FaturaYonetimiDbModel _entity)
         //{

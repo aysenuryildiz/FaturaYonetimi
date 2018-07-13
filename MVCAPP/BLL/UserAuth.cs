@@ -1,11 +1,7 @@
 ﻿using DataEntities;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Security.Claims;
-using System.Web;
 
 namespace MVCAPP.BLL
 {
@@ -19,8 +15,7 @@ namespace MVCAPP.BLL
                 new Claim(ClaimTypes.Email, model.Email),
                  new Claim(ClaimTypes.Name, model.Email)
                 //new Claim(ClaimTypes.Role,"Admin")
-
-          };
+                          };
 
             var identity = new ClaimsIdentity(claims, DefaultAuthenticationTypes.ApplicationCookie);
             authenticationManager.SignIn(identity);

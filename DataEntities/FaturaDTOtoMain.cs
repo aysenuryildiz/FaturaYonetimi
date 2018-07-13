@@ -11,19 +11,11 @@ namespace DataEntities
     public class FaturaDTOtoMain
     {
         public int ID { get; set; }
-
         //public int MusteriD { get; set; }
-
         public int SaticiID { get; set; }
-
-
         //[Required]
         //[StringLength(10)]
         //public string FaturaTip { get; set; }
-
-
-
- 
         //public List<StokHareketleriDTO> Players { get; set; }
     }
 }

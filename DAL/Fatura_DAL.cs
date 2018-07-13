@@ -1,30 +1,23 @@
 ﻿using DataEntities;
-using System.Linq;
-
 namespace DAL
 {
     public class Fatura_DAL
     {
-        
         public void GetList()
         {
 
         }
-        //modeli ekleme
-        public void Add(Fatura model, FaturaYonetimiDbModel entity)
+        public void Add(Fatura model, FaturaYonetimiDbModel db)
         {
-
-            var ent = entity.Entry(model);
+            var ent = db.Entry(model);
             ent.State = System.Data.Entity.EntityState.Added;
-            entity.SaveChanges();
+            db.SaveChanges();
         }
-        //fatura modelini güncelleme
-        public void Update(Fatura model, FaturaYonetimiDbModel entity)
+        public void Update(Fatura model, FaturaYonetimiDbModel db)
         {
-                var ent = entity.Entry(model);
-                ent.State = System.Data.Entity.EntityState.Modified;
-                entity.SaveChanges();
-
+            var ent = db.Entry(model);
+            ent.State = System.Data.Entity.EntityState.Modified;
+            db.SaveChanges();
         }
         public void Delete()
         {
@@ -34,25 +27,6 @@ namespace DAL
         {
 
         }
-
-        
-
-
-
-
-
-
-     
-
-
-
-    
-
-
     }
-
-
-
-
 }
 

@@ -30,10 +30,10 @@ namespace DataEntities
         [Required]
         [StringLength(50)]
         public string Adres { get; set; }
-
+        [Required]
         [Column(TypeName = "money")]
         public decimal? Alacak { get; set; }
-
+        [Required]
         [Column(TypeName = "money")]
         public decimal? Borc { get; set; }
 

@@ -1,5 +1,6 @@
 ﻿using DAL;
 using DataEntities;
+using System;
 using System.Collections.Generic;
 namespace BLL
 {
@@ -10,74 +11,31 @@ namespace BLL
         {
             faturaDAL = new Fatura_DAL();
         }
-      
         public string FaturaKaydet(FaturaArguman faturaArguman)
         {
-            // Fatura argümanlarının kontrolü
-            // - Model Validasyon, (başka bir yerde yapılmıyor ise !) (bence hertürlü =) )
-            // - Logic validasyon ( kesinlilkle ) 
-
-            // DTO objeceleri ; DataTransferObject
-            // Fatura => ana nesnen
-            // Id, MüşteriModel(MüşteriAdi, MüşteriVKN), FaturaTarih, AraToplam, KDV, GenelToplam
-            // class FaturaDTOToList
-            // class FaturaDTOToDetail
-
-            //var arguman = new FaturaArguman
-            //{
-            //    musteriAdi = MusteriD,
-            //};
-            //var fatura = GetFaturaFromArgumant(arguman);
-
-            // Fatura Insert    => FaturaDAL.Add(fatura);
-
-            // Stok bakiye güncelle
-
-            // .. bilgilendirme maili gönder
-
-            // ...
             string mesaj = "";
             StokHareketleri_BLL stokHareketleriBLL = new StokHareketleri_BLL();
             StokTakibi_BLL stokTakibiBLL = new StokTakibi_BLL();
             Musteri_BLL musteriBLL = new Musteri_BLL();
-            SirketProfil_BLL sirketBLL = new SirketProfil_BLL();
-            
+
             using (FaturaYonetimiDbModel db = new FaturaYonetimiDbModel())
             {
                 try
                 {
                     if (faturaArguman != null)
                     {
-                        ///<summary>
-                        ///if (MusteriD != 0 && SaticiID != 0 && FaturaTip != null && FaturaTarihi != null)
-                        ///FaturaArguman faturaArguman = new FaturaArguman();
-                        ///Fatura fatura = faturaArguman.FaturaArgumanlariDoldur(fatur);
-                        ///  master alan kaydet
-                        ///Fatura model = new Fatura();
-                        ///model.MusteriD = MusteriD;
-                        ///model.SaticiID = SaticiID;
-                        ///model.FaturaTip = FaturaTip;
-                        ///model.FaturaTarihi = FaturaTarihi;
-                        /// </summary>
+
                         var faturaModel = GetFaturaFromArgumant(faturaArguman);
-                        if (MusteriBorcKontrolu(faturaModel, db))
+                        var borcKontrol = MusteriBorcKontrolu(faturaModel, db);
+                        
+                        if (borcKontrol)
                         {
-                            //detail alan kaydet
                             stokHareketleriBLL.StokHareketleriKaydet(faturaModel.StokHareketleri, db);
-
-
-                            //aratoplam,kdvtoplam,geneltoplam hesapla
                             FaturaHesapla(faturaModel, faturaModel.StokHareketleri, db);
-
-                            //müşteri-şirket alacak borc durumunu güncelle
                             musteriBLL.MusteriAlacakBorcDurumu(faturaModel, faturaModel.MusteriD, db);
-
-
-
-                            //stok durumunu güncelle
                             stokTakibiBLL.StokDurumuGuncelle(faturaModel, faturaModel.StokHareketleri, db);
                             faturaDAL.Add(faturaModel, db);
-                            mesaj = "kayıt başarılı";
+                            mesaj = StructManager.SUCCESS_MESSAGE;
                         }
                         else
                         {
@@ -89,11 +47,8 @@ namespace BLL
                 {
                     throw;
                 }
-
                 return mesaj;
             }
-
-
         }
         /// <summary>FATURANIN ARA TOPLAM,KDV TOPLAM,GENEL TOPLAMININ HESAPLANMASI
         /// <paramref name="model">ARATOPLAM,KDVTOPLAM VE GENELTOPLAMIN HANGİ MODELE SEÇ EDİLECEĞİ</paramref> 
@@ -122,21 +77,30 @@ namespace BLL
                 model.GenelToplam = faturaGenelToplam;
             }
         }
-
         public bool MusteriBorcKontrolu(Fatura model, FaturaYonetimiDbModel db)
         {
-            Musteri_BLL musteriBll = new Musteri_BLL();
-            MusteriProfil musteriProfil = musteriBll.MusteriGetir(model.MusteriD, db);
-            if ((musteriProfil.Alacak-musteriProfil.Borc)<10000)
-            {
-                return true;
-            }
-            else 
+            var borcLimit = GetBorcLimit();
+
+            Musteri_BLL musteriBLL = new Musteri_BLL();
+            MusteriProfil musteriProfil = musteriBLL.MusteriGetir(model.MusteriD, db);
+            if ((musteriProfil.Borc - musteriProfil.Alacak) > borcLimit)
             {
                 return false;
             }
 
+            else
+            {
+                return true;
+            }
         }
+
+        private Int32 GetBorcLimit()
+        {
+            var borcLimitString = new KeyValueModelHelper().GetValue(StructManager.BORC_LIMIT_KEY);
+            var borcLimit = string.IsNullOrEmpty(borcLimitString) ? 100000000 : Convert.ToInt32(borcLimitString);
+            return borcLimit;
+        }
+
         public Fatura GetFaturaFromArgumant(FaturaArguman faturaArguman)
         {
             Fatura model = new Fatura();
@@ -146,7 +110,6 @@ namespace BLL
             model.FaturaTarihi = faturaArguman.faturaTarihi;
             model.StokHareketleri = faturaArguman.stokHareketleriListesi;
             return model;
-
         }
     }
 }

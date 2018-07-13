@@ -48,6 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Fatura_DAL.cs" />
+    <Compile Include="KeyValueModel_DAL.cs" />
     <Compile Include="Kullanici_DAL.cs" />
     <Compile Include="Musteri_DAL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

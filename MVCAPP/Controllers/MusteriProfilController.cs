@@ -1,13 +1,10 @@
 ﻿using BLL;
 using DataEntities;
 using System.Web.Mvc;
-
-
 namespace MVCAPP.Controllers
 {
     public class MusteriProfilController : Controller
     {
-
         [Authorize]
         public ActionResult MusteriOlustur()
         {
@@ -18,7 +15,7 @@ namespace MVCAPP.Controllers
         [Authorize]
         public ActionResult MusteriOlustur(MusteriProfil musteri)
         {
-            Musteri_BLL obj = new Musteri_BLL();
+            Musteri_BLL musteri_BLL = new Musteri_BLL();
             //var resultCustomValidation = obj.Dogrula(musteri);
             //if(resultCustomValidation != null)
             //{
@@ -29,9 +26,9 @@ namespace MVCAPP.Controllers
             {
                 try
                 {
-                    if (obj.KayitVarMi(musteri))
+                    if (musteri_BLL.KayitVarMi(musteri))
                     {
-                        obj.MusteriKaydet(musteri);
+                        musteri_BLL.MusteriKaydet(musteri);
                     }
                     else
                     {
@@ -48,15 +45,13 @@ namespace MVCAPP.Controllers
         [Authorize]
         public ActionResult MusteriListesi(MusteriProfil musteri)
         {
-
             return View();
-
         }
 
         public ActionResult MusteriSil(int id)
         {
-            Musteri_BLL obj = new Musteri_BLL();
-            if (obj.MusteriSil(id))
+            Musteri_BLL musteri_BLL = new Musteri_BLL();
+            if (musteri_BLL.MusteriSil(id))
             {
                 return RedirectToAction("MusteriListesi");
             }
@@ -64,7 +59,6 @@ namespace MVCAPP.Controllers
             {
                 return RedirectToAction("MusteriListesi");
             }
-
         }
     }
 }

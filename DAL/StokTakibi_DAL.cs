@@ -5,17 +5,15 @@ namespace DAL
 {
     public class StokTakibi_DAL
     {
-        //seçilen ürüne ait stok durumunu getirme
-        public StokTakibi GetByID(int id, FaturaYonetimiDbModel _entity)
+        public StokTakibi GetByID(int id, FaturaYonetimiDbModel db)
         {
-                var stokTakibiModel = _entity.StokTakibi.Where(x => x.UrunID == id).FirstOrDefault();
-                return stokTakibiModel;
+            var stokTakibiModel = db.StokTakibi.Where(x => x.UrunID == id).FirstOrDefault();
+            return stokTakibiModel;
         }
-        //stok durumunu güncelleme
-        public void Update(StokTakibi model, FaturaYonetimiDbModel entity)
+        public void Update(StokTakibi model, FaturaYonetimiDbModel db)
         {
-                var ent = entity.Entry(model);
-                ent.State = System.Data.Entity.EntityState.Modified;
+            var ent = db.Entry(model);
+            ent.State = System.Data.Entity.EntityState.Modified;
         }
 
     }
