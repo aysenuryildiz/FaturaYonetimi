@@ -3,17 +3,7 @@
     ViewBag.Title = "Index";
 }
 
-@*<head>
-
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-        <!-- Ionicons -->
-        <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-        <!-- Theme style -->
-
-        <!-- Google Font: Source Sans Pro -->
-        <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
-    </head>*@
-<body class="skin-default-dark fixed-layout">
+-<body class="skin-default-dark fixed-layout">
 
 
 
@@ -25,20 +15,26 @@
                     <!-- AREA CHART -->
                     <div class="card card-primary">
                         <div class="card-header">
-                            <h3 class="card-title">Satış Grafikleri</h3>
+                            <h3 class="card-title">SatÄ±ÅŸ Grafikleri</h3>
                             <div class="card-tools">
                                 <button type="button" class="btn btn-tool" data-widget="collapse">
                                     <i class="fa fa-minus"></i>
+
                                 </button>
                                 <button type="button" class="btn btn-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+
                             </div>
+
                         </div>
                         <div class="card-body">
                             <div class="chart">
                                 <canvas id="areaChart" style="height:250px"></canvas>
+
                             </div>
+
                         </div>
                         <!-- /.card-body -->
+
                     </div>
                     <!-- /.card -->
                     <!-- DONUT CHART -->
@@ -48,36 +44,48 @@
                             <div class="card-tools">
                                 <button type="button" class="btn btn-tool" data-widget="collapse">
                                     <i class="fa fa-minus"></i>
+
                                 </button>
                                 <button type="button" class="btn btn-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+
                             </div>
+
                         </div>
                         <div class="card-body">
                             <canvas id="pieChart" style="height:250px"></canvas>
+
                         </div>
                         <!-- /.card-body -->
+
                     </div>
                     <!-- /.card -->
+
                 </div>
                 <!-- /.col (LEFT) -->
                 <div class="col-md-6">
                     <!-- LINE CHART -->
                     <div class="card card-info">
                         <div class="card-header">
-                            <h3 class="card-title">Çizgi Grafik</h3>
+                            <h3 class="card-title">Ã‡izgi Grafik</h3>
                             <div class="card-tools">
                                 <button type="button" class="btn btn-tool" data-widget="collapse">
                                     <i class="fa fa-minus"></i>
+
                                 </button>
                                 <button type="button" class="btn btn-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+
                             </div>
+
                         </div>
                         <div class="card-body">
                             <div class="chart">
                                 <canvas id="lineChart" style="height:250px"></canvas>
+
                             </div>
+
                         </div>
                         <!-- /.card-body -->
+
                     </div>
                     <!-- /.card -->
                     <!-- BAR CHART -->
@@ -87,39 +95,48 @@
                             <div class="card-tools">
                                 <button type="button" class="btn btn-tool" data-widget="collapse">
                                     <i class="fa fa-minus"></i>
+
                                 </button>
                                 <button type="button" class="btn btn-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+
                             </div>
+
                         </div>
                         <div class="card-body">
                             <div class="chart">
                                 <canvas id="barChart" style="height:230px"></canvas>
+
                             </div>
+
                         </div>
                         <!-- /.card-body -->
+
                     </div>
                     <!-- /.card -->
+
                 </div>
                 <!-- /.col (RIGHT) -->
+
             </div>
             <!-- /.row -->
+
         </div><!-- /.container-fluid -->
+
     </section>
-    <!-- /.content -->
-    <!-- ./wrapper -->
-    <!-- jQuery -->
+
     <script src="~/Content/IndexPage/jquery.min.js"></script>
-    <!-- Bootstrap 4 -->
+
     <script src="~/Content/IndexPage/bootstrap.bundle.min.js"></script>
-    <!-- ChartJS 1.0.1 -->
+
     <script src="~/Content/IndexPage/Chart.min.js"></script>
-    <!-- FastClick -->
+
     <script src="~/Content/IndexPage/fastclick.js"></script>
-    <!-- AdminLTE App -->
+
     <script src="~/Content/IndexPage/adminlte.js"></script>
-    <!-- AdminLTE for demo purposes -->
+
     <script src="~/Content/IndexPage/demo.js"></script>
     <!-- page script -->
+
     <script>
         $(function () {
             /* ChartJS
@@ -326,4 +343,8 @@
             barChart.Bar(barChartData, barChartOptions)
         })
     </script>
+
 </body>
+
+
+
