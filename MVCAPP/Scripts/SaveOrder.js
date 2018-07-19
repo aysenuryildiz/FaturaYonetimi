@@ -1,6 +1,6 @@
 ﻿
 {
-        //Add Multiple Order.
+    //Add Multiple Order.
     $("#addToList").click(function (e) {
         e.preventDefault();
 
@@ -17,12 +17,12 @@
         clearItem();
     });
     //After Add A New Order In The List, Clear Clean The Form For Add More Order.
-        function clearItem() {
-            $("#UrunID").val('');
-       
-            $("#Miktar").val('');
-            $("#BirimFiyat").val('');
-            $("#KdvMiktar").val('');
+    function clearItem() {
+        $("#UrunID").val('');
+
+        $("#Miktar").val('');
+        $("#BirimFiyat").val('');
+        $("#KdvMiktar").val('');
     }
     // After Add A New Order In The List, If You Want, You Can Remove It.
     $(document).on('click', 'a.deleteItem', function (e) {
@@ -39,7 +39,7 @@
 
 
 
-      //After Click Save Button Pass All Data View To Controller For Save Database
+    //After Click Save Button Pass All Data View To Controller For Save Database
     function saveOrder(data) {
         return $.ajax({
             contentType: 'application/json; charset=utf-8',
@@ -47,16 +47,19 @@
             type: 'POST',
             url: "/Fatura/SaveOrder",
             data: data,
-
-            
             success: function (result) {
-                alert("kaydetme başarılı");
-                if (result.code === 1) {
-                    window.location = '/Fatura/FaturaListele'
-                }
+                sweetAlert({
+                    title: "Kaydedildi!",
+                    type: "success"
+                }, function () {
+                    window.location.href = '/Fatura/FaturaListele';
+                });
+
             },
             error: function () {
-                alert("Error!")
+                //alert("Error!")
+                swal("Oops", "Eksik Alanları Doldurun", "error");
+
             }
         });
     }
@@ -64,7 +67,9 @@
 
 
 
- 
+
+
+
     $("#saveOrder").click(function (e) {
         e.preventDefault();
 
@@ -76,7 +81,7 @@
                 UrunID: $(this).find('td:eq(0)').html(),
                 Miktar: $(this).find('td:eq(1)').html(),
                 BirimFiyat: $(this).find('td:eq(2)').html(),
-             
+
                 KdvMiktar: $(this).find('td:eq(3)').html()
             });
         });
@@ -88,12 +93,12 @@
             FaturaTarihi: $("#FaturaTarihi").val(),
             order: orderArr
         });
-          
-        
+
+
 
         $.when(saveOrder(data)).then(function (response) {
             console.log(response);
         });
     });
-  
- }
+
+}
