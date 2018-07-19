@@ -300,13 +300,6 @@
     <Content Include="Content\image\users\6.jpg" />
     <Content Include="Content\image\users\7.jpg" />
     <Content Include="Content\image\users\8.jpg" />
-    <Content Include="Content\IndexPage\adminlte.js" />
-    <Content Include="Content\IndexPage\adminlte.min.css" />
-    <Content Include="Content\IndexPage\bootstrap.bundle.min.js" />
-    <Content Include="Content\IndexPage\Chart.min.js" />
-    <Content Include="Content\IndexPage\demo.js" />
-    <Content Include="Content\IndexPage\fastclick.js" />
-    <Content Include="Content\IndexPage\jquery.min.js" />
     <Content Include="Content\sweetalert\sweetalert.css" />
     <Content Include="Content\sweetalert\sweetalert.js" />
     <Content Include="Content\sweetalert\sweetalert.min.js" />

@@ -59,7 +59,6 @@ namespace DAL
         {
             FaturaYonetimiDbModel db = new FaturaYonetimiDbModel();
             Fatura fatura = db.Fatura.Where(x => x.ID == id).FirstOrDefault();
-          
             return fatura;
         }
     }

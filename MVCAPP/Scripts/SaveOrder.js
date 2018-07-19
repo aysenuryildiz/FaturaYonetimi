@@ -50,17 +50,13 @@
 
             
             success: function (result) {
-                sweetAlert
-                    ({
-                        title: "Kaydedildi!",
-                        type: "success"
-                    }, function () {
-                        window.location.href = '/Fatura/FaturaListele';
-                    });
+                alert("kaydetme başarılı");
+                if (result.code === 1) {
+                    window.location = '/Fatura/FaturaListele'
+                }
             },
             error: function () {
-                //alert("Error!")
-                swal("Oops", "Eksik Alanları Doldurun", "error");
+                alert("Error!")
             }
         });
     }
