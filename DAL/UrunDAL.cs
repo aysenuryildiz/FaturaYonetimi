@@ -1,9 +1,9 @@
 ﻿using System.Linq;
-using DataEntities;
+using Entities;
 
 namespace DAL
 {
-    public class Urun_DAL
+    public class UrunDAL
     {
         public void Add(Urun urunModel)
         {
@@ -11,6 +11,14 @@ namespace DAL
             {
                 try
                 {
+                    StokTakibi stokTakibiModel = new StokTakibi();
+                    stokTakibiModel.StokDurumu = 1000;
+                    stokTakibiModel.UrunID = urunModel.ID;
+                    
+
+                    db.StokTakibi.Add(stokTakibiModel);
+
+
                     db.Urun.Add(urunModel);
                     db.SaveChanges();
                 }
@@ -22,8 +30,14 @@ namespace DAL
         }
         public void Delete(Urun model, FaturaYonetimiDbModel db)
         {
-            var ent = db.Entry(model);
+
+            var stokmodel = db.StokTakibi.Where(x => x.UrunID == model.ID).FirstOrDefault();
+           
+            var ent = db.Entry(stokmodel);
+            
             ent.State = System.Data.Entity.EntityState.Deleted;
+            var urunent = db.Entry(model);
+            urunent.State = System.Data.Entity.EntityState.Deleted;
             db.SaveChanges();
 
         }

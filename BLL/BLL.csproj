@@ -48,16 +48,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FaturaArguman.cs" />
-    <Compile Include="Fatura_BLL.cs" />
+    <Compile Include="FaturaBLL.cs" />
     <Compile Include="KeyValueModelHelper.cs" />
-    <Compile Include="Kullanici_BLL.cs" />
-    <Compile Include="Musteri_BLL.cs" />
+    <Compile Include="KullaniciBLL.cs" />
+    <Compile Include="MusteriBLL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SirketProfil_BLL.cs" />
-    <Compile Include="StokHareketleri_BLL.cs" />
-    <Compile Include="StokTakibi_BLL.cs" />
+    <Compile Include="SirketProfilBLL.cs" />
+    <Compile Include="StokHareketleriBLL.cs" />
+    <Compile Include="StokTakibiBLL.cs" />
     <Compile Include="StructManager.cs" />
-    <Compile Include="Urun_BLL.cs" />
+    <Compile Include="UrunBLL.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -68,9 +68,9 @@
       <Project>{634ae118-96c4-4f83-a764-baa958a4cf73}</Project>
       <Name>DAL</Name>
     </ProjectReference>
-    <ProjectReference Include="..\DataEntities\DataEntities.csproj">
-      <Project>{9bd06e43-94f6-4ee0-adda-8954826227a6}</Project>
-      <Name>DataEntities</Name>
+    <ProjectReference Include="..\Entities\Entities.csproj">
+      <Project>{10314a60-737d-4f90-8b95-7121d9067c1d}</Project>
+      <Name>Entities</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

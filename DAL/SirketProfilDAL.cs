@@ -1,8 +1,8 @@
 ﻿using System.Linq;
-using DataEntities;
+using Entities;
 namespace DAL
 {
-    public class SirketProfil_DAL
+    public class SirketProfilDAL
     {
         public SirketProfil GetByID(int id, FaturaYonetimiDbModel db)
         {

@@ -1,0 +1,58 @@
+﻿
+@using Entities
+@{
+    ViewBag.Title = "StokDurumListesi";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var db = new FaturaYonetimiDbModel();
+    var list = db.StokTakibi.ToList();
+}
+
+<body class="skin-default-dark fixed-layout">
+
+    <div class="card card-primary">
+        <div class="card-header">
+            <h3 class="card-title">Stok Bakiye Listesi</h3>
+        </div>
+        <!-- /.card-header -->
+        <div class="card-body">
+            <div id="example1_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <table id="example1" class="table table-bordered table-striped dataTable" role="grid" aria-describedby="example1_info">
+                            <thead>
+                                <tr role="row">
+                                    <th rowspan="1" colspan="1" aria-sort="ascending" style="width: 144px;">Ürün Kodu</th>
+                                    <th rowspan="1" colspan="1" aria-sort="ascending" style="width: 144px;">Ürün Adı</th>
+                                    <th rowspan="1" colspan="1" aria-sort="ascending" style="width: 144px;">Stok Durumu</th>
+                                    
+
+                            </thead>
+                            <tbody>
+                                @if (list == null)
+                                {
+                                    <tr>Sistemde Kayıtlı Ürün Bulunmamaktadır..</tr>
+                                }
+                                else
+                                {
+                                    foreach (var item in list)
+                                    {
+                                        <tr>
+                                            <td>@item.UrunID</td>
+                                            <td>@item.Urun.UrunAdi</td>
+                                            <td>@item.StokDurumu</td>
+                                          
+                                        </tr>
+                                    }
+                                }
+                            </tbody>
+
+
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</body>

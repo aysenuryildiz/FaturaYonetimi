@@ -1,10 +1,10 @@
-﻿using DataEntities;
+﻿using Entities;
 using System;
 using System.Linq;
 
 namespace DAL
 {
-    public class Kullanici_DAL
+    public class KullaniciDAL
     {
         public bool KullaniciKontrolü(string email, string password)
         {

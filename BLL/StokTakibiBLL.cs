@@ -1,16 +1,16 @@
 ﻿using DAL;
 using System.Collections.Generic;
-using DataEntities;
+using Entities;
 using System.Net.Mail;
 
 namespace BLL
 {
-    public class StokTakibi_BLL
+    public class StokTakibiBLL
     {
-        StokTakibi_DAL stokTakipDal;
-        public StokTakibi_BLL()
+        StokTakibiDAL stokTakipDal;
+        public StokTakibiBLL()
         {
-            stokTakipDal = new StokTakibi_DAL();
+            stokTakipDal = new StokTakibiDAL();
         }
         public StokTakibi StokTakibiIdGetir(int id, FaturaYonetimiDbModel db)
         {
@@ -27,17 +27,10 @@ namespace BLL
             {
                 UrunStokDurumGuncellemeSatisIcin(stokHareketleriListesi, db);
             }
-            //foreach (var item in stokHareketleriListesi)
-            //{
 
-            //    SmtpClient client = new SmtpClient("some.server.com");
-            //    MailMessage mailMessage = new MailMessage();
-            //    mailMessage.From = "someone@somewhere.com";
-            //    mailMessage.To.Add("someone.else@somewhere-else.com");
-            //    mailMessage.Subject = "Hello There";
-            //    mailMessage.Body = "Hello my friend!";
-            //    client.Send(mailMessage);
-            //}
+
+
+
             return true;
         }
 
@@ -58,6 +51,10 @@ namespace BLL
                 var stokTakibi = StokTakibiIdGetir(item.UrunID, db);
                 stokTakibi.StokDurumu = StokDurumHesapla(stokTakibi.StokDurumu, item.Miktar);
                 stokTakipDal.Update(stokTakibi, db);
+                if (stokTakibi.StokDurumu < 10)
+                {
+                    SendMailforStokDurumu(stokHareketleriListesi);
+                }
             }
         }
 
@@ -65,6 +62,21 @@ namespace BLL
         {
             var mevcutBakiyeDurum = mevcutBakiye ?? 0;
             return mevcutBakiyeDurum - eklenenBakiyeMiktari;
+        }
+        public void SendMailforStokDurumu(ICollection<StokHareketleri> stokHareketleriListesi)
+        {
+            foreach (var item in stokHareketleriListesi)
+            {
+
+                //SmtpClient client = new SmtpClient("some.server.com");
+                //MailMessage mailMessage = new MailMessage();
+                //mailMessage.From = "someone@somewhere.com";
+                //mailMessage.To.Add("someone.else@somewhere-else.com");
+                //mailMessage.Subject = "Hello There";
+                //mailMessage.Body = "Hello my friend!";
+                //client.Send(mailMessage);
+
+            }
         }
     }
 }

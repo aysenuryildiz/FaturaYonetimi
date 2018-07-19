@@ -1,14 +1,14 @@
 ﻿using DAL;
-using DataEntities;
+using Entities;
 
 namespace BLL
 {
-    public class Kullanici_BLL
+    public class KullaniciBLL
     {
-        Kullanici_DAL kullanici_DAL;
-        public Kullanici_BLL()
+        KullaniciDAL kullanici_DAL;
+        public KullaniciBLL()
         {
-            kullanici_DAL = new Kullanici_DAL();
+            kullanici_DAL = new KullaniciDAL();
         }
         public bool KullaniciKontrolü(LoginModel loginModel)
         {

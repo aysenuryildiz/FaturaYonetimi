@@ -1,74 +1,68 @@
-﻿@model DataEntities.Fatura
-@using DataEntities
+﻿@model Entities.Fatura
+@using Entities
 @{
     ViewBag.Title = "FaturaListele";
     Layout = "~/Views/Shared/_Layout.cshtml";
     FaturaYonetimiDbModel db = new FaturaYonetimiDbModel();
     var list = db.Fatura.ToList();
 }
+
+
 <body class="skin-default-dark fixed-layout">
 
-    <div class="card card-primary fixed-layout">
+    <div class="card card-primary">
         <div class="card-header">
             <h3 class="card-title">Fatura Listesi</h3>
         </div>
         <!-- /.card-header -->
         <div class="card-body">
             <div id="example1_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <table id="example1" class="table table-bordered table-striped dataTable" role="grid" aria-describedby="example1_info">
+                            <thead>
+                                <tr role="row">
+                                    <th rowspan="1" colspan="1" aria-sort="ascending" style="width: 144px;">Fatura No</th>
+                                    <th rowspan="1" colspan="1" aria-sort="ascending" style="width: 144px;">Müşteri Adı</th>
+                                    <th rowspan="1" colspan="1" aria-sort="ascending" style="width: 144px;">Müşteri Soyadı</th>
+                                    <th rowspan="1" colspan="1" aria-sort="ascending" style="width: 144px;">Satış Birimi</th>
+                                    <th rowspan="1" colspan="1" aria-sort="ascending" style="width: 144px;">Fatura Tipi</th>
+                                    <th rowspan="1" colspan="1" aria-sort="ascending" style="width: 144px;">Fatura Tarihi</th>
+                                    <th rowspan="1" colspan="1" aria-sort="ascending" style="width: 144px;"></th>
 
 
-                <div class="col-sm-12">
-                    <table id="example1" class="table table-bordered table-striped dataTable" role="grid" aria-describedby="example1_info">
-                        <thead>
-                            <tr role="row">
-                                <th rowspan="1" colspan="1" aria-sort="ascending" style="width: 144px;">Fatura No</th>
-                                <th rowspan="1" colspan="1" aria-sort="ascending" style="width: 144px;">Müşteri Adı</th>
-                                <th rowspan="1" colspan="1" aria-sort="ascending" style="width: 144px;">Müşteri Soyadı</th>
-                                <th rowspan="1" colspan="1" aria-sort="ascending" style="width: 144px;">Satış</th>
-                                <th rowspan="1" colspan="1" aria-sort="ascending" style="width: 144px;">Fatura Tipi</th>
-                                <th rowspan="1" colspan="1" aria-sort="ascending" style="width: 144px;">Fatura Tarihi</th>
-                                <th rowspan="1" colspan="1" aria-sort="ascending" style="width: 144px;">Ara Toplam</th>
-                                <th rowspan="1" colspan="1" aria-sort="ascending" style="width: 144px;">KDV Toplamı</th>
-                                <th rowspan="1" colspan="1" aria-sort="ascending" style="width: 144px;">Genel Toplam</th>
-
-
-                        </thead>
-                        <tbody>
-                            @if (list == null)
-                            {
-                                <tr>Sistemde Kayıtlı Ürün Bulunmamaktadır..</tr>
-                            }
-                            else
-                            {
-                                foreach (var item in list)
+                            </thead>
+                            <tbody>
+                                @if (list == null)
                                 {
-                                    <tr>
-                                        <td>@item.ID</td>
-                                        <td>@item.MusteriProfil.Ad</td>
-                                        <td>@item.MusteriProfil.Soyad</td>
-                                        <td>@item.SaticiProfil.Departman</td>
-                                        <td>@item.FaturaTip</td>
-                                        <td>@item.FaturaTarihi</td>
-                                        <td>@item.AraToplam</td>
-                                        <td>@item.KDVToplam</td>
-                                        <td>@item.GenelToplam</td>
-                                        <td>@Html.ActionLink("Düzenle", "EditFatura", "Fatura", new { id = item.ID }, null)</td>
-
-                                    </tr>
+                                    <tr>Sistemde Kayıtlı Ürün Bulunmamaktadır..</tr>
                                 }
-                            }
-                        </tbody>
+                                else
+                                {
+                                    foreach (var item in list)
+                                    {
+                                        <tr>
+                                            <td>@item.ID</td>
+                                            <td>@item.MusteriProfil.Ad</td>
+                                            <td>@item.MusteriProfil.Soyad</td>
+                                            <td>@item.SaticiProfil.Departman</td>
+                                            <td>@item.FaturaTip</td>
+                                            <td>@item.FaturaTarihi</td>
+                                            <td>@Html.ActionLink("Detay", "Details", "Fatura", new { id = item.ID }, null)</td>
+                                            <td>@Html.ActionLink("GET PDF", "CreatePdf", "Fatura", new { id = item.ID })</td>
+                                        </tr>
+                                    }
+                                }
+                            </tbody>
 
 
-                    </table>
+                        </table>
+                    </div>
                 </div>
             </div>
-        </div>
 
+        </div>
     </div>
 
 </body>
-
-
-
 

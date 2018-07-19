@@ -47,24 +47,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Fatura_DAL.cs" />
-    <Compile Include="KeyValueModel_DAL.cs" />
-    <Compile Include="Kullanici_DAL.cs" />
-    <Compile Include="Musteri_DAL.cs" />
+    <Compile Include="FaturaDAL.cs" />
+    <Compile Include="KeyValueModelDAL.cs" />
+    <Compile Include="KullaniciDAL.cs" />
+    <Compile Include="MusteriDAL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SirketProfil_DAL.cs" />
-    <Compile Include="StokHareketleri_DAL.cs" />
-    <Compile Include="StokTakibi_DAL.cs" />
-    <Compile Include="Urun_DAL.cs" />
+    <Compile Include="SirketProfilDAL.cs" />
+    <Compile Include="StokHareketleriDAL.cs" />
+    <Compile Include="StokTakibiDAL.cs" />
+    <Compile Include="UrunDAL.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DataEntities\DataEntities.csproj">
-      <Project>{9bd06e43-94f6-4ee0-adda-8954826227a6}</Project>
-      <Name>DataEntities</Name>
+    <ProjectReference Include="..\Entities\Entities.csproj">
+      <Project>{10314a60-737d-4f90-8b95-7121d9067c1d}</Project>
+      <Name>Entities</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

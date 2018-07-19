@@ -14,6 +14,7 @@ namespace DataEntities
 
         public virtual DbSet<Fatura> Fatura { get; set; }
         public virtual DbSet<Kategori> Kategori { get; set; }
+        public virtual DbSet<KeyValueModel> KeyValueModel { get; set; }
         public virtual DbSet<Kullanici> Kullanici { get; set; }
         public virtual DbSet<MusteriProfil> MusteriProfil { get; set; }
         public virtual DbSet<SaticiProfil> SaticiProfil { get; set; }
@@ -22,7 +23,6 @@ namespace DataEntities
         public virtual DbSet<StokTakibi> StokTakibi { get; set; }
         public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<Urun> Urun { get; set; }
-        public virtual DbSet<KeyValueModel> KeyValueModel { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Linq;
-using DataEntities;
+using Entities;
 
 namespace DAL
 {
-    public class Musteri_DAL
+    public class MusteriDAL
     {
         public void Add(MusteriProfil musteri)
         {
@@ -52,7 +52,17 @@ namespace DAL
             }
 
         }
-      
+
+        public object GetList()
+        {
+            using (var db = new FaturaYonetimiDbModel())
+            {
+                var musteri = db.MusteriProfil.ToList();
+                return musteri;
+            }
+
+            
+        }
     }
 }
 

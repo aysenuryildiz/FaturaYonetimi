@@ -1,9 +1,9 @@
-﻿using DataEntities;
+﻿using Entities;
 using System.Linq;
 
 namespace DAL
 {
-    public class KeyValueModel_DAL
+    public class KeyValueModelDAL
     {
         public KeyValueModel GetValue(string key, FaturaYonetimiDbModel db)
         {

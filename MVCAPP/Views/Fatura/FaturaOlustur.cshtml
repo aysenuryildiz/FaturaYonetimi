@@ -1,197 +1,145 @@
-﻿@model DataEntities.Fatura
-
-@using DataEntities;
-
+﻿@model Entities.Fatura
+@using Entities;
 @{
-
-
     ViewBag.Title = "FaturaOlustur";
     Layout = "~/Views/Shared/_Layout.cshtml";
     FaturaYonetimiDbModel _entity = new FaturaYonetimiDbModel();
     var list = _entity.MusteriProfil.ToList();
-
+    var urunlist = _entity.Urun.ToList();
 }
-
-
 
 <body class="skin-default-dark fixed-layout">
 
-
-    <div class="container body-content">
-
-
-        <form id="NewOrderForm">
-
-            @*FATURA DETAYLARI*@
-            <h5 style="color:#ff6347">FATURA DETAYLARI</h5>
-            <hr />
-            <div class="form-horizontal">
-                @*<input type="hidden" id="ID" />*@
-                <div class="form-group">
-                    <label class="control-label col-md-2">
-                        MÜŞTERİ GİRİŞİ
-                    </label>
-                    <div class="col-md-4">
-                        @Html.DropDownListFor(model => model.MusteriD, ViewBag.MusteriListesi as IEnumerable<SelectListItem>, "Lütfen Seçiniz",
-    new { @class = "form-control" })
+    @using (Html.BeginForm("SaveOrder", "Fatura", FormMethod.Post))
+    {
 
 
 
+        <section class="content"  style="color:#e23655">
+            <div class="container-fluid">
+                <div class="col">
+                    <!-- left column -->
+                    <div>
+                        <!-- general form elements -->
+                        <div class="card card-warning">
+                            <div class="card-header">
+                                <h3 class="card-title">FATURA DETAYLARI</h3>
+                            </div>
+                            <!-- /.card-header -->
+                            <!-- form start -->
+                            <form role="form">
+                                <div class="card-body">
+                                    <div class="form-group">
+                                        <label>MÜŞTERİ GİRİŞİ</label>
+                                        <div>
+                                            @Html.DropDownListFor(model => model.MusteriD, ViewBag.MusteriListesi as IEnumerable<SelectListItem>, "Lütfen Seçiniz", new { @class = "form-control" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label> SATIŞ BİRİMİ </label>
+                                        <div> @Html.DropDownListFor(model => model.SaticiID, ViewBag.SaticiListesi as IEnumerable<SelectListItem>, "Lütfen Seçiniz", new { @class = "form-control" }) </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label> FATURA TİPİ </label>
+                                        <div>
+                                            <select name="FaturaTip" id="FaturaTip" class="form-control">
+                                                <option value="none" selected>Lütfen Seçiniz</option>
+                                                <option value="ALIS">ALIŞ FATURASI</option>
+                                                <option value="SATIS">SATIŞ FATURASI</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>FATURA TARİHİ</label>
+                                        <div>
+                                            <input type="text" id="FaturaTarihi" name="FaturaTarihi" placeholder="Tarih Girin" class="form-control" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- /.card-body -->
 
+                            </form>
+                        </div>
+                        <!-- /.card -->
                     </div>
-                    <label class="control-label col-md-2">
-                        SATIŞ GİRİŞİ
-                    </label>
-                    <div class="col-md-4">
-                        @Html.DropDownListFor(model => model.SaticiID, ViewBag.SaticiListesi as IEnumerable<SelectListItem>, "Lütfen Seçiniz", new { @class = "form-control" })
-                        @*<input type="text" id="SaticiID" name="SaticiID" placeholder="SaticiID" class="form-control" />*@
+                    <!--/.col (left) -->
+                    <!-- right column -->
+                    <div>
+                        <!-- general form elements disabled -->
+                        <div class="card card-warning">
+                            <div class="card-header">
+                                <h3 class="card-title">KALEM DETAYLARI</h3>
+                            </div>
+                            <!-- /.card-header -->
+                            <div class="card-body">
+                                <form role="form">
+                                    <div class="form-group">
+                                        <label>ÜRÜN GİRİŞİ</label>
+                                        <select name="UrunID" id="UrunID" class="form-control">
+                                            <option value="none" selected>Lütfen Seçiniz</option>
+                                            @foreach (var item in urunlist)
+                                            {
+                                                <option value=@item.ID>@item.UrunAdi</option>
+                                            }
 
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>ADET</label>
+                                        <input type="number" id="Miktar" name="Miktar" placeholder="Adet Girin" class="form-control" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label>BİRİM FİYAT</label>
+                                        <input type="number" id="BirimFiyat" name="BirimFiyat" placeholder="Birim Fiyat Girin" class="form-control" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label>KDV YÜZDESİ</label>
+                                        <input type="number" id="KdvMiktar" name="KdvMiktar" placeholder="KDV Oranı Girin" class="form-control" />
+                                    </div>
+                                    <div class="form-group">
+                                        <a id="addToList" class="btn btn-success">LİSTEYE EKLE</a>
+                                    </div>
+                                    <table id="detailsTable" class="table">
+                                        <thead>
+                                            <tr>
+                                                <th style="width:30%">Ürün Kodu</th>
+                                                <th style="width:20%">Adet</th>
+                                                <th style="width:15%">Birim Fiyat</th>
+                                                <th style="width:25%">KDV ORANI</th>
+                                                <th style="width:10%"></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody></tbody>
+                                    </table>
+
+                                </form>
+                            </div>
+                            <!-- /.card-body -->
+                        </div>
+                        <!-- /.card -->
                     </div>
-                    <label class="control-label col-md-2">
-                        FATURA TİPİ
-                    </label>
-
-
-                    <div class="col-md-4">
-                        <select name="FaturaTip" id="FaturaTip" class="form-control">
-                            <option value="none" selected>LÜTFEN SEÇİNİZ</option>
-                            <option value="ALIS">ALIŞ FATURASI</option>
-                            <option value="SATIS">SATIŞ FATURASI</option>
-                        </select>
-                    </div>
-
-
-                    <label class="control-label col-md-2">
-                        Faturatarih
-                    </label>
-                    <div class="col-md-4">
-                        <input type="text" id="FaturaTarihi" name="FaturaTarihi" placeholder="FaturaTarihi" class="form-control"  />
-                    </div>
+                    <!--/.col (right) -->
+                    <button type="reset" class="btn btn-default" data-dismiss="modal">TEMİZLE</button>
+                    <button id="saveOrder" type="submit" class="btn btn-danger">FATURAYI KAYDET</button>
                 </div>
-            </div>
-
-            @*Urun detay*@
-            <h5 style="margin-top:10px;color:#ff6347">KALEM DETAYLARI</h5>
-            <hr />
-            <div class="form-horizontal">
-                <input type="hidden" id="ID" />
-                <input type="hidden" id="FaturaID" />
-                <div class="form-group">
-
-
-                    <label class="control-label col-md-2">
-                        ÜRÜN GİRİŞİ
-                    </label>
-                    <div class="col-md-4">
-                        <input type="number" id="UrunID" name="UrunID" placeholder="UrunID" class="form-control" />
-
-                    </div>
-
-                    <label class="control-label col-md-2">
-                        Miktar
-                    </label>
-                    <div class="col-md-4">
-                        <input type="number" id="Miktar" name="Miktar" placeholder="Miktar" class="form-control" />
-                    </div>
-
-                    <label class="control-label col-md-2">
-                        BİRİM FİYAT
-                    </label>
-                    <div class="col-md-4">
-                        <input type="number" id="BirimFiyat" name="BirimFiyat" placeholder="BirimFiyat" class="form-control" />
-                    </div>
-
-
-
-
-                    <label class="control-label col-md-2">
-                        KDV ORANI
-                    </label>
-                    <div class="col-md-4">
-                        <input type="number" id="KdvMiktar" name="KdvMiktar" placeholder="KDV Oranı" class="form-control" />
-                    </div>
-                </div>
-
-                <div class="form-group">
-
-
-                    <div class="col-md-2 col-lg-offset-4">
-                        <a id="addToList" class="btn btn-primary">LİSTEYE EKLE</a>
-                    </div>
-                </div>
-
-                <table id="detailsTable" class="table">
-                    <thead>
-                        <tr>
-                            <th style="width:30%">Ürün </th>
-                            <th style="width:20%">Adet</th>
-                            <th style="width:15%">Birim Fiyat</th>
-                            <th style="width:25%">KDV ORANI</th>
-                            <th style="width:10%"></th>
-                        </tr>
-                    </thead>
-                    <tbody></tbody>
-                </table>
-            </div>
-
-
-            <button type="reset" class="btn btn-default" data-dismiss="modal">TEMİZLE</button>
-
-            <button id="saveOrder" type="submit" class="btn btn-danger">FATURAYI KAYDET</button>
-
-        </form>
-
-
-
-    </div>
-
-
-
-
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+                <!-- /.row -->
+            </div><!-- /.container-fluid -->
+        </section>
+    }
     <script language="JavaScript" type="text/javascript" src="~/Scripts/SaveOrder.js"></script>
-
-
     @*input mask*@
-    <script src="~/Scripts/jquery.validate.min.js"></script>
-    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/3.3.4/css/inputmask.min.css" />
-    <style type="text/css">
-
-        .field-validation-error {
-            color: #ff0000;
-        }
-    </style>
-
-    <!-- JS includes -->
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
-
-    <script src="//ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
-    <script src="//ajax.aspnetcdn.com/ajax/mvc/4.0/jquery.validate.unobtrusive.min.js"></script>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-browser/0.1.0/jquery.browser.min.js"></script>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/3.3.4/bindings/inputmask.binding.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/3.3.4/inputmask/inputmask.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/3.3.4/inputmask/inputmask.phone.extensions.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/3.3.4/inputmask/jquery.inputmask.min.js"></script>
-
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.maskedinput/1.4.1/jquery.maskedinput.min.js"></script>
-
+    <!--datepicker JS includes -->
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="/resources/demos/style.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script type="text/javascript">
         $(document).ready(function ($) {
-            $('#FaturaTarihi').mask("99/99/9999");
-         
 
+            $("#FaturaTarihi").datepicker();
         });
     </script>
-
-
-
 
 </body>
 

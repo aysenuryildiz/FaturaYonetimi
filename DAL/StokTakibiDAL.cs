@@ -1,9 +1,9 @@
-﻿using DataEntities;
+﻿using Entities;
 using System.Linq;
 
 namespace DAL
 {
-    public class StokTakibi_DAL
+    public class StokTakibiDAL
     {
         public StokTakibi GetByID(int id, FaturaYonetimiDbModel db)
         {

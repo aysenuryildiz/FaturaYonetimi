@@ -1,4 +1,4 @@
-﻿@model DataEntities.UserModel
+﻿
 <!DOCTYPE html>
 <html lang="en">
 
@@ -27,6 +27,9 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+    <link href="~/Content/sweetalert/sweetalert.css" rel="stylesheet" />
+    <script src="~/Content/sweetalert/sweetalert.js"></script>
+    <script src="~/Content/sweetalert/sweetalert.min.js"></script>
 </head>
 <body class="skin-default-dark fixed-layout">
 
@@ -45,20 +48,20 @@
                 <!-- Logo -->
                 <!-- ============================================================== -->
                 <div class="navbar-header">
-                    <a class="navbar-brand" href="index.html">
+                    <a class="navbar-brand">
                         <!-- Logo icon --><b>
                             <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
                             <!-- Dark Logo icon -->
-                            <img src="~/Content/image/logo-icon.png" alt="homepage" class="dark-logo" />
+                            @*<img src="~/Content/image/bereket.png" alt="homepage" class="dark-logo" />*@
                             <!-- Light Logo icon -->
-                            <img src="~/Content/image/logo-light-icon.png" alt="homepage" class="light-logo" />
+                            @*<img src="~/Content/image/bereket.png" alt="homepage" class="light-logo" />*@
                         </b>
                         <!--End Logo icon -->
                         <!-- Logo text --><span>
                             <!-- dark Logo text -->
-                            <img src="~/Content/image/logo-text.png" alt="homepage" class="dark-logo" />
+                            <img src="~/Content/image/bereket-text.png" alt="homepage" class="dark-logo" />
                             <!-- Light Logo text -->
-                            <img src="~/Content/image/logo-light-text.png" class="light-logo" alt="homepage" />
+                            <img src="~/Content/image/bereket-text.png" class="light-logo" alt="homepage" />
                         </span>
                     </a>
                 </div>
@@ -82,8 +85,8 @@
                         <!-- User profile and search -->
                         <!-- ============================================================== -->
                         <li class="nav-item">
-                           
-                            <a>@Html.ActionLink("ÇIKIŞ YAP", "LogOut", "Account") <span class="sr-only">(current)</span></a>
+
+                            <a>@Html.ActionLink("ÇIKIŞ YAP", "LogOut", "Account")</a>
 
                         </li>
                         <!-- ============================================================== -->
@@ -98,22 +101,23 @@
 
         <aside class="left-sidebar">
             <div class="d-flex no-block nav-text-box align-items-center">
-                <span><img src="~/Content/image/logo-icon.png" alt="elegant admin template"></span>
-                <a class="waves-effect waves-dark ml-auto hidden-sm-down" href="javascript:void(0)"><i class="ti-menu"></i></a>
-                <a class="nav-toggler waves-effect waves-dark ml-auto hidden-sm-up" href="javascript:void(0)"></a>
+                <span><img src="~/Content/image/bereket.png" alt="elegant admin template"></span>
+                <a class="waves-effect waves-dark ml-auto hidden-sm-down" href="javascript:void(0)"><i class="fa fa-window-restore"></i></a>
+                <a class="nav-toggler waves-effect waves-dark ml-auto hidden-sm-up" href="javascript:void(0)"><i class="ti-menu ti-close"></i></a>
             </div>
             <!-- Sidebar scroll-->
             <div class="scroll-sidebar">
                 <!-- Sidebar navigation-->
                 <nav class="sidebar-nav">
                     <ul id="sidebarnav">
-                        <li> <a class="waves-effect waves-dark" aria-expanded="false"> @Html.ActionLink("Yeni Müşteri Kaydı", "MusteriOlustur", "MusteriProfil")<span class="hide-menu"></span></a></li>
-                        <li> <a class="waves-effect waves-dark" aria-expanded="false"> @Html.ActionLink("Müşteri Listesi", "MusteriListesi", "MusteriProfil")<span class="hide-menu"></span></a></li>
-                        <li> <a class="waves-effect waves-dark" aria-expanded="false"> @Html.ActionLink("Yeni Fatura Kaydı", "FaturaOlustur", "Fatura")<span class="hide-menu"></span></a></li>
-                        <li> <a class="waves-effect waves-dark" aria-expanded="false"> @Html.ActionLink("Fatura Listesi", "FaturaListele", "Fatura")</i><span class="hide-menu"></span></a></li>
-                        <li> <a class="waves-effect waves-dark" aria-expanded="false"> @Html.ActionLink("Stok Hareketleri", "StokHareketListesi", "StokHareketleri")<span class="hide-menu"></span></a></li>
-                        <li> <a class="waves-effect waves-dark" aria-expanded="false"> @Html.ActionLink("Ürün Listesi", "UrunListesi", "Urun")<span class="hide-menu"></span></a></li>
-                        <li> <a class="waves-effect waves-dark" aria-expanded="false"> @Html.ActionLink("Yeni Ürün Oluştur", "UrunOlustur", "Urun")<span class="hide-menu"></span></a></li>
+                        <li>@Html.ActionLink("Yeni Müşteri Kaydı", "MusteriOlustur", "MusteriProfil")<span class="hide-menu"></span></a></li>
+                        <li>@Html.ActionLink("Müşteri Listesi", "MusteriListesi", "MusteriProfil")<span class="hide-menu"></span></a></li>
+                        <li>@Html.ActionLink("Yeni Fatura Kaydı", "FaturaOlustur", "Fatura")<span class="hide-menu"></span></a></li>
+                        <li>@Html.ActionLink("Fatura Listesi", "FaturaListele", "Fatura")<span class="hide-menu"></span></a></li>
+                        <li>@Html.ActionLink("Stok Hareketleri", "StokHareketListesi", "StokHareketleri")<span class="hide-menu"></span></a></li>
+                        <li>@Html.ActionLink("Ürün Listesi", "UrunListesi", "Urun")<span class="hide-menu"></span></a></li>
+                        <li>@Html.ActionLink("Yeni Ürün Oluştur", "UrunOlustur", "Urun")<span class="hide-menu"></span></a></li>
+                        <li>@Html.ActionLink("Stok Bakiye", "StokDurumListesi", "StokTakibi")<span class="hide-menu"></span></a></li>
 
                     </ul>
                 </nav>
@@ -122,18 +126,19 @@
             <!-- End Sidebar scroll-->
         </aside>
 
-      
-            <div class="container-fluid">
-            
-                <div class="row page-titles">
-                    
-                </div>
+
+        <div class="container-fluid">
+
+            <div class="row page-titles">
 
             </div>
 
-      
-    </div>
+        </div>
 
+
+    </div>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
     <script src=" ~/Scripts/Template/jquery-3.2.1.min.js"></script>
     <!-- Bootstrap popper Core JavaScript -->
     <script src=" ~/Scripts/Template/popper.min.js"></script>
@@ -158,7 +163,6 @@
     <script src=" ~/Scripts/Template/c3.min.js"></script>
     <!-- Chart JS -->
     <script src=" ~/Scripts/Template/dashboard1.js"></script>
-
 
 
     <div class="container body-content">

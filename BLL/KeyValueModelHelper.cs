@@ -1,4 +1,4 @@
-﻿using DataEntities;
+﻿using Entities;
 
 namespace BLL
 {
@@ -7,7 +7,7 @@ namespace BLL
         public string GetValue(string key)
         {
             var db = new FaturaYonetimiDbModel();
-            var value = new DAL.KeyValueModel_DAL().GetValue(key, db);
+            var value = new DAL.KeyValueModelDAL().GetValue(key, db);
             return value == null ? string.Empty : value.Value;
         }
     }

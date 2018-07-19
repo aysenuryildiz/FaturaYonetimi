@@ -1,4 +1,4 @@
-﻿using DataEntities;
+﻿using Entities;
 using System.Collections.Generic;
 
 namespace BLL

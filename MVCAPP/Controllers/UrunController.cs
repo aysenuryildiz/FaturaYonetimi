@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using BLL;
-using DataEntities;
+using Entities;
 
 namespace MVCAPP.Controllers
 {
@@ -37,51 +37,70 @@ namespace MVCAPP.Controllers
         [Authorize]
         public ActionResult UrunOlustur(Urun urun)
         {
-            Urun_BLL urun_BLL = new Urun_BLL();
-            string result = "";
+            
             if (ModelState.IsValid)
             {
                 try
                 {
-                    if (urun_BLL.UrunKayitVarMi(urun))
+                    UrunBLL urunBLL = new UrunBLL();
+                    if (urunBLL.UrunKayitVarMi(urun))
                     {
-                        urun_BLL.UrunKaydet(urun);
-                        result = "Urun KAYDETME BAŞARILI";
+                        urunBLL.UrunKaydet(urun);
                     }
                     else
                     {
-                        result = "Urun KAYDETME BAŞARISIZ";
+                        return RedirectToAction("UrunOlustur");
                     }
+                   
                 }
-                catch (Exception e)
+                catch
                 {
-                    result = "Urun KAYDETME BAŞARISIZ";
+                    throw;
                 }
+
             }
-            return Json(result, JsonRequestBehavior.AllowGet);
+
+            return RedirectToAction("UrunListesi");
         }
 
         [Authorize]
-        public ActionResult UrunListesi(/*string searching*/)
+        public ActionResult UrunListesi()
         {
-            //using (FaturaYonetimiDbModel db = new FaturaYonetimiDbModel())
-            //{
-            //    return View(db.Urun.Where(x => x.UrunAdi.Contains(searching) || searching == null).ToList());
-            //}
             return View();
         }
 
-        public ActionResult UrunSil(int id)
+        public bool UrunSil(int id)
         {
-            Urun_BLL urun_BLL = new Urun_BLL();
-            if (urun_BLL.UrunSil(id))
+            UrunBLL urunBLL = new UrunBLL();
+            if (urunBLL.UrunSil(id))
             {
-                return RedirectToAction("UrunListesi");
+                return false;
             }
             else
             {
-                return RedirectToAction("UrunListesi");
+                return true;
             }
         }
+
+        public JsonResult Delete(int ID)
+        {
+            bool silindiMi = UrunSil(ID);
+            var data=0;
+            if (silindiMi)
+            {
+                //silindi
+                data = 1;
+                return Json(data, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                data = 0;
+                return Json(data, JsonRequestBehavior.AllowGet);
+
+            }
+        }
+
+
+
     }
 }

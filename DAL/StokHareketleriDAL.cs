@@ -1,8 +1,8 @@
-﻿using DataEntities;
+﻿using Entities;
 
 namespace DAL
 {
-    public class StokHareketleri_DAL
+    public class StokHareketleriDAL
     {
         public void Add(StokHareketleri model, FaturaYonetimiDbModel db)
         {

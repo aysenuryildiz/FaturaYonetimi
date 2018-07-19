@@ -1,4 +1,4 @@
-﻿@model DataEntities.MusteriProfil
+﻿@model Entities.MusteriProfil
 @{
     ViewBag.Title = "UrunOlustur";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -23,11 +23,11 @@
 
                     </div>
                     <div class="form-group">
-                        @Html.TextBoxFor(model => model.Soyad, new { @class = "form-control", @placeholder = "Soyad" })
+                        @Html.TextBoxFor(model => model.Soyad, new { @class = "form-control", @placeholder = "Soyad" ,@id = "musterisoyad" })
                         @Html.ValidationMessageFor(model => model.Soyad)
                     </div>
                     <div class="form-group">
-                        @Html.TextBoxFor(model => model.Adres, new { @class = "form-control", @placeholder = "Şehir" })
+                        @Html.TextBoxFor(model => model.Adres, new { @class = "form-control", @placeholder = "Şehir", @id = "adres" })
                         @Html.ValidationMessageFor(model => model.Adres)
                     </div>
                     <div class="form-group">
@@ -38,18 +38,18 @@
 
                     </div>
                     <div class="form-group">
-                        @Html.TextBoxFor(model => model.Alacak, new { @class = "form-control", @placeholder = "Alacak Miktarı(TL)", @id = "money1" }).
+                        @Html.TextBoxFor(model => model.Alacak, new { @class = "form-control", @placeholder = "Alacak Miktarı(TL)", @id = "money1", @step = "0.01", @max = "100000.00" }).
                         @Html.ValidationMessageFor(model => model.Alacak)
 
                     </div>
                     <div class="form-group">
-                        @Html.TextBoxFor(model => model.Borc, new { @class = "form-control", @placeholder = "Borç Miktarı(TL)", @id = "money2" })
+                        @Html.TextBoxFor(model => model.Borc, new { @class = "form-control", @placeholder = "Borç Miktarı(TL)", @id = "money1", @step = "0.01", @max = "100000.00" }).
                         @Html.ValidationMessageFor(model => model.Borc)
 
                     </div>
                     <div class="card-footer">
 
-                        <button type="submit" class="btn btn-primary">KAYDET</button>
+                        <button type="submit" id="kaydet" class="btn btn-primary">KAYDET</button>
                     </div>
                     <br />
                 </div>
@@ -58,20 +58,6 @@
 
         </div>
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     <script src="~/Scripts/jquery.validate.min.js"></script>
     <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
@@ -104,9 +90,17 @@
     <script type="text/javascript">
         $(document).ready(function ($) {
             $('#phonemaskc').mask("+0(999)999-99-99");
-            $('#money1').mask("999999999");
-            $('#money2').mask("999999999");
-
+            
         });
+        $('#kaydet').click(function (e) {
+          
+            if ($('#musteriad').val() !== "" && $('#musterisoyad').val() !== "" && $('#phonemaskc').val() !== "" && $('#money1').val() !== "" && $('#money2').val() !== ""&& $('#adres').val() !== "" ) {
+                sweetAlert
+                    ({
+                        title: "Kaydedildi!",
+                        type: "success"
+                    });
+            }
+        });  
     </script>
 </body>

@@ -1,4 +1,4 @@
-﻿using DataEntities;
+﻿using Entities;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
 using System.Security.Claims;

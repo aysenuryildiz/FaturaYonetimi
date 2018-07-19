@@ -1,15 +1,11 @@
-﻿@model DataEntities.MusteriProfil
-@using DataEntities
+﻿
+@using Entities
 @{
     ViewBag.Title = "MusteriListesi";
     Layout = "~/Views/Shared/_Layout.cshtml";
     FaturaYonetimiDbModel _entity = new FaturaYonetimiDbModel();
     var list = _entity.MusteriProfil.ToList();
 }
-
-
-
-
 
 <body class="skin-default-dark fixed-layout">
 
@@ -20,12 +16,12 @@
         <!-- /.card-header -->
         <div class="card-body">
             <div id="example1_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4">
-                <div class="row"><div class="col-sm-12 col-md-6"><div class="dataTables_length" id="example1_length"><label>Search:<input type="search" class="form-control form-control-sm" placeholder="" aria-controls="example1"></label></div></div></div><div class="row">
+                <div class="row">
                     <div class="col-sm-12">
                         <table id="example1" class="table table-bordered table-striped dataTable" role="grid" aria-describedby="example1_info">
                             <thead>
                                 <tr role="row">
-                                    <th rowspan="1" colspan="1" aria-sort="ascending" style="width: 144px;">Fatura No</th>
+                                    <th rowspan="1" colspan="1" aria-sort="ascending" style="width: 144px;">Müşteri Kodu</th>
                                     <th rowspan="1" colspan="1" aria-sort="ascending" style="width: 144px;">Ad</th>
                                     <th rowspan="1" colspan="1" aria-sort="ascending" style="width: 144px;">Soyad</th>
                                     <th rowspan="1" colspan="1" aria-sort="ascending" style="width: 144px;">Adres</th>
@@ -58,10 +54,8 @@
 
                                             <td>
 
-                                                @Html.ActionLink("SİL", "MusteriSil", new { id = item.ID })
 
-
-
+                                                <button type="button" class="btn btn-primary" onclick="return Delete(@item.ID);" id="sil">Sil</button>
 
 
                                             </td>
@@ -79,5 +73,48 @@
         </div>
     </div>
 
+    <script type="text/javascript">
+        function Delete(ID) {
+            swal({
+                title: "Emin misin?",
+                type: "warning",
+                showCancelButton: true,
+                closeOnConfirm: false,
+                confirmButtonText: "SİL",
+                confirmButtonColor: "#ec6c62"
+            },
+                function () {
+                    $.ajax({
+                        url: "/MusteriProfil/Delete/" + ID,
+                        type: "POST",
+                        contentType: "application/json;charset=UTF-8",
+                        dataType: "json",
 
+                    })
+                        .done(function (data) {
+                            if (data == 1) {
+
+                                sweetAlert
+                                    ({
+                                        title: "Silindi!",
+                                        text: "Müşteri başarıyla silindi.",
+                                        type: "success"
+                                    },
+                                    function () {
+                                        window.location.href = '/MusteriProfil/MusteriListesi';
+                                    });
+
+                            }
+                            else {
+                                swal("Oops", "Müşteri Silinemez. Adına Kayıtlı Fatura Mevcut", "error");
+                            }
+                        })
+                        .error(function (data) {
+                            swal("Oops", "We couldn't connect to the server!", "error");
+                        });
+                });
+
+        }
+
+    </script>
 </body>

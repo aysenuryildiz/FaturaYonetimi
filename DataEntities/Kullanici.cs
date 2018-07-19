@@ -1,4 +1,4 @@
-namespace DataEntities
+namespace Entities
 {
     using System;
     using System.Collections.Generic;
@@ -10,11 +10,11 @@ namespace DataEntities
     public partial class Kullanici
     {
         [Key]
-        [Required(ErrorMessage ="EMAÝL GÝRÝNÝZ")]
+        [Required(ErrorMessage = "EMAÝL GÝRÝNÝZ")]
         [StringLength(50)]
         public string Email { get; set; }
 
-        [Required(ErrorMessage ="ÞÝFRE GÝRÝLMESÝ ZORUNLUDUR")]
+        [Required(ErrorMessage = "ÞÝFRE GÝRÝLMESÝ ZORUNLUDUR")]
         [StringLength(50)]
         public string Password { get; set; }
 
@@ -23,5 +23,6 @@ namespace DataEntities
 
         [StringLength(50)]
         public string Surname { get; set; }
+
     }
 }

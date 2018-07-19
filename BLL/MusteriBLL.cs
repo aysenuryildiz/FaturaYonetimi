@@ -1,15 +1,18 @@
 ﻿using DAL;
 using System;
 using System.Linq;
-using DataEntities;
+using Entities;
+using System.Collections.Generic;
+
 namespace BLL
 {
-    public class Musteri_BLL
+    public class MusteriBLL
     {
-        Musteri_DAL musteriDAL;
-        public Musteri_BLL()
+        MusteriDAL musteriDAL;
+
+        public MusteriBLL()
         {
-            musteriDAL = new Musteri_DAL();
+            musteriDAL = new MusteriDAL();
         }
         public void MusteriKaydet(MusteriProfil musteriProfil)
         {
@@ -98,23 +101,12 @@ namespace BLL
                 }
             }
         }
-        //public Dictionary<string, string> Dogrula(MusteriProfil musteri)
-        //{
-        //    var result = new Dictionary<string, string>();
 
 
-
-
-        //    //var isExists = MusteriDAL.Get(x => x.Ad == musteri.Ad).Any();
-        //    //if(isExists)
-        //    //result.Add("musteriAd", "Bu müşteri adı daha önceden kayıt edşlmştir");
-
-        //    //var isExists = MusteriDAL.Get(x => x.Ad == musteri.SoyAd).Any();
-        //    //if(isExists)
-        //    //result.Add("musteriSyoAd", "Bu müşteri soyad daha önceden kayıt edşlmştir");
-
-        //    return result;
-        //}
-
+        public object GetList()
+        {
+            var musteri = musteriDAL.GetList();
+            return musteri;
+        }
     }
 }

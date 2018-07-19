@@ -1,26 +1,13 @@
-﻿@model DataEntities.Urun
-
-
-
+﻿@model Entities.Urun
 @{
     ViewBag.Title = "UrunOlustur";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-
-<script src="~/Scripts/jquery.validate.min.js"></script>
-<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
-
-
 <body class="skin-default-dark fixed-layout">
-
-
     <div class="container body-content">
-
-
         @using (Html.BeginForm("UrunOlustur", "Urun", FormMethod.Post))
         {
-
             @Html.ValidationSummary(true)
 
             <div class="card card-primary">
@@ -34,40 +21,29 @@
                         </label>
                         <div class="form-group">
                             @Html.DropDownListFor(model => model.KategoriID, ViewBag.KategoriListesi as IEnumerable<SelectListItem>, "Lütfen Seçiniz",
-        new { @class = "form-control" })
-
-
-
-
+                             new { @class = "form-control", @id="Kategori" })
                         </div>
                         <label class="control-label col-md-2">
                             ÜRÜN GİRİŞİ
                         </label>
                         <div class="form-group">
-                            @Html.TextBoxFor(model => model.UrunAdi, new { @class = "form-control", @placeholder = "UrunAdi" })
+                            @Html.TextBoxFor(model => model.UrunAdi, new { @class = "form-control", @placeholder = "Ürün Adı Giriniz", @id = "UrunAdi" })
                             @Html.ValidationMessageFor(model => model.UrunAdi)
+                            <br />
+                            <br />
                         </div>
-
-
                     </div>
                     <!-- /.card-body -->
                     <div class="card-footer">
-
-                        <button type="submit" class="btn btn-primary">KAYDET</button>
+                        <button type="submit" class="btn btn-primary" id="UrunKaydet">KAYDET</button>
                     </div>
                 </form>
 
             </div>
-
-
-
-
-
-
-
         }
     </div>
-
-
+    <script src="~/Scripts/MySweetAlert/UrunAlert.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
 
 </body>

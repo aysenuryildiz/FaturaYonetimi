@@ -1,19 +1,20 @@
 ﻿using DAL;
 using System;
-using DataEntities;
+using Entities;
 using System.Linq;
 
 namespace BLL
 {
-    public class Urun_BLL
+    public class UrunBLL
     {
-        Urun_DAL urunDAL;
-        public Urun_BLL()
+        UrunDAL urunDAL;
+        public UrunBLL()
         {
-            urunDAL = new Urun_DAL();
+            urunDAL = new UrunDAL();
         }
         public void UrunKaydet(Urun urunModel)
         {
+          
             urunDAL.Add(urunModel);
         }
         public bool UrunSil(int ID)
@@ -22,11 +23,12 @@ namespace BLL
             {
                 var urun = urunDAL.GetByID(ID, db);
                 var stok_urunID = urun.ID;
-
+               
                 try
                 {
                     if (UrunSatisKontrolü(stok_urunID, db))
                     {
+
                         urunDAL.Delete(urun, db);
                         return false;
                     }

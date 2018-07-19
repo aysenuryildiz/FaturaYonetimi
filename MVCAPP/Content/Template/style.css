@@ -22,9 +22,7 @@ File: scss
  *	12. Forms
  *	14. Component
  */
-@import url(../../Content/Template/themify-icons.css);
-@import url(../../Content/Template/font-awesome.min.css);
-@import url("https://fonts.googleapis.com/css?family=Rubik:300,400,500,600,700");
+
 .skin-default-dark {
   /*Theme Colors*/ }
   .skin-default-dark .topbar {
@@ -9911,9 +9909,10 @@ Preloader
   outline: none; }
 
 body {
-  margin: 0;
-  overflow-x: hidden;
-  color: #6c757d; }
+    margin: 0;
+    overflow-x: hidden;
+    color: #ce3753;
+}
 
 html {
   position: relative;

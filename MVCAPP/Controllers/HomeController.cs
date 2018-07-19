@@ -1,4 +1,4 @@
-﻿using DataEntities;
+﻿using Entities;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 namespace MVCAPP.Controllers

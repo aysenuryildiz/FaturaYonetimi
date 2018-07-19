@@ -1,4 +1,4 @@
-﻿using DataEntities;
+﻿using Entities;
 using System.Web.Mvc;
 namespace MVCAPP.Controllers
 {

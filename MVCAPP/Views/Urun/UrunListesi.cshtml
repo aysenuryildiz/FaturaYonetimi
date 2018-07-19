@@ -1,77 +1,114 @@
-﻿@model DataEntities.Urun
-@using DataEntities;
+﻿@using Entities;
 @{
     ViewBag.Title = "UrunListesi";
     Layout = "~/Views/Shared/_Layout.cshtml";
 
     FaturaYonetimiDbModel db = new FaturaYonetimiDbModel();
-    var list = db.Urun.ToList();
+    var list = db.StokTakibi.ToList();
 
 }
 <body class="skin-default-dark fixed-layout">
-   
-            <div class="card card-primary">
-                <div class="card-header">
-                    <h3 class="card-title">Ürün Listesi</h3>
-                </div>
-                <!-- /.card-header -->
-                <div class="card-body">
-                    <div id="example1_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4">
-                        <div class="row"><div class="col-sm-12 col-md-6"><div class="dataTables_length" id="example1_length">
-                            @*<label>Search:   @using (Html.BeginForm("UrunListesi", "Urun", FormMethod.Get))
-                                              {
+    <div class="card card-primary">
+        <div class="card-header">
+            <h3 class="card-title">Ürün Listesi</h3>
+        </div>
+        <!-- /.card-header -->
+        <div class="card-body">
+            <div id="example1_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4">
+                <div class="row">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <table id="example1" class="table table-bordered table-striped dataTable" role="grid" aria-describedby="example1_info">
+                                <thead>
+                                    <tr role="row">
+                                        <th rowspan="1" colspan="1" aria-sort="ascending" style="width: 144px;">Kategori Adı</th>
 
-                                                  @Html.TextBox("searching") <input type="submit" value="Search" />
+                                        <th rowspan="1" colspan="1" aria-sort="ascending" style="width: 144px;">Ürün Adı</th>
+                                        <th rowspan="1" colspan="1" aria-sort="ascending" style="width: 144px;">Stok Adedi</th>
 
-                                              }</label>*@
-                               </div>
-                             </div>
-                            </div>
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <table id="example1" class="table table-bordered table-striped dataTable" role="grid" aria-describedby="example1_info">
-                                    <thead>
-                                        <tr role="row">
-                                            <th rowspan="1" colspan="1" aria-sort="ascending" style="width: 144px;">Ürün ID</th>
-                                            @*<th rowspan="1" colspan="1" aria-sort="ascending" style="width: 144px;">Kategori Adı</th>*@
-                                            <th rowspan="1" colspan="1" aria-sort="ascending" style="width: 144px;">Ürün Adı</th>
-
-
-                                    </thead>
-                                    <tbody>
-                                        @if (list == null)
+                                </thead>
+                                <tbody>
+                                    @if (list == null)
+                                    {
+                                        <tr>Sistemde Kayıtlı Ürün Bulunmamaktadır..</tr>
+                                    }
+                                    else
+                                    {
+                                        foreach (var item in list)
                                         {
-                                            <tr>Sistemde Kayıtlı Ürün Bulunmamaktadır..</tr>
+                                            <tr>
+                                                <td>@item.UrunID</td>
+                                                <td>@item.Urun.Kategori.KategoriAd</td>
+                                                <td>@item.Urun.UrunAdi</td>
+                                                <td>@item.StokDurumu</td>
+
+                                                <td>
+
+                                                    <button type="button" class="btn btn-primary" onclick="return Delete(@item.UrunID);" id="sil">Sil</button>
+                                                    @*@Html.ActionLink("GÜNCELLE", "UpdateStok", new { id = item.ID })*@
+                                                </td>
+                                            </tr>
                                         }
-                                        else
-                                        {
-                                            foreach (var item in list)
-                                            {
-                                                <tr>
-                                                    <td>@item.ID</td>
-                                                    <td>@item.Kategori.KategoriAd</td>
-                                                    <td>@item.UrunAdi</td>
+                                    }
+                                </tbody>
 
-
-                                                    <td>
-                                                        @Html.ActionLink("SİL", "UrunSil", new { id = item.ID })
-                                                        @*@Html.ActionLink("GÜNCELLE", "UpdateStok", new { id = item.ID })*@
-
-
-
-
-                                                    </td>
-                                                </tr>
-                                            }
-                                        }
-                                    </tbody>
-
-                                </table>
-                            </div>
+                            </table>
                         </div>
                     </div>
-
                 </div>
+
             </div>
-      
+        </div>
+    </div>
+
+   
+
+    <script type="text/javascript">
+
+
+        function Delete(ID) {
+            swal({
+                title: "Emin misin?",
+                type: "warning",
+                showCancelButton: true,
+                closeOnConfirm: false,
+                confirmButtonText: "SİL",
+                confirmButtonColor: "#ec6c62"
+            },
+                function () {
+                    $.ajax({
+                        url: "/Urun/Delete/" + ID,
+                        type: "POST",
+                        contentType: "application/json;charset=UTF-8",
+                        dataType: "json",
+
+                    })
+                        .done(function (data) {
+                            if (data == 1) {
+
+                                sweetAlert
+                                    ({
+                                        title: "Silindi!",
+                                        text: "Ürün başarıyla silindi.",
+                                        type: "success"
+                                    },
+                                    function () {
+                                        window.location.href = '/Urun/UrunListesi';
+                                    });
+
+                            }
+                            else {
+                                swal("Oops", "Ürün Silinemez. Faturaya Geçmiş", "error");
+                            }
+                        })
+                        .error(function (data) {
+                            swal("Oops", "We couldn't connect to the server!", "error");
+                        });
+                });
+
+        }
+
+    </script>
+
+
 </body>

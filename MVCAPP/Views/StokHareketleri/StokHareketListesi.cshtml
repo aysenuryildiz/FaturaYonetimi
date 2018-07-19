@@ -1,5 +1,5 @@
-﻿@model DataEntities.StokHareketleri
-@using DataEntities;
+﻿@model Entities.StokHareketleri
+@using Entities;
 @{
     ViewBag.Title = "StokHareketListesi";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -7,60 +7,60 @@
     var list = _entity.StokHareketleri.ToList();
 }
 <body class="skin-default-dark fixed-layout">
-  
-        <div class="card card-primary">
-            <div class="card-header">
-                <h3 class="card-title">Stok Hareketleri Listesi</h3>
-            </div>
-            <!-- /.card-header -->
-            <div class="card-body">
-                <div id="example1_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4">
-                    <div class="row"><div class="col-sm-12 col-md-6"><div class="dataTables_length" id="example1_length"><label>Search:<input type="search" class="form-control form-control-sm" placeholder="" aria-controls="example1"></label></div></div></div><div class="row">
-                        <div class="col-sm-12">
-                            <table id="example1" class="table table-bordered table-striped dataTable" role="grid" aria-describedby="example1_info">
-                                <thead>
-                                    <tr role="row">
-                                        <th rowspan="1" colspan="1" aria-sort="ascending" style="width: 144px;">STOK Hareket No</th>
-                                        <th rowspan="1" colspan="1" aria-sort="ascending" style="width: 144px;">Fatura No</th>
-                                        <th rowspan="1" colspan="1" aria-sort="ascending" style="width: 144px;">Ürün Adı</th>
-                                        <th rowspan="1" colspan="1" aria-sort="ascending" style="width: 144px;">Miktar</th>
-                                        <th rowspan="1" colspan="1" aria-sort="ascending" style="width: 144px;">Birim Fiyat</th>
-                                        <th rowspan="1" colspan="1" aria-sort="ascending" style="width: 144px;">KDV Yüzdesi</th>
-                                     
 
-                                </thead>
-                                <tbody>
-                                    @if (list == null)
+    <div class="card card-primary">
+        <div class="card-header">
+            <h3 class="card-title">Stok Hareketleri Listesi</h3>
+        </div>
+        <!-- /.card-header -->
+        <div class="card-body">
+            <div id="example1_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <table id="example1" class="table table-bordered table-striped dataTable" role="grid" aria-describedby="example1_info">
+                            <thead>
+                                <tr role="row">
+                                    <th rowspan="1" colspan="1" aria-sort="ascending" style="width: 144px;">STOK Hareket No</th>
+                                    <th rowspan="1" colspan="1" aria-sort="ascending" style="width: 144px;">Fatura No</th>
+                                    <th rowspan="1" colspan="1" aria-sort="ascending" style="width: 144px;">Ürün Adı</th>
+                                    <th rowspan="1" colspan="1" aria-sort="ascending" style="width: 144px;">Miktar</th>
+                                    <th rowspan="1" colspan="1" aria-sort="ascending" style="width: 144px;">Birim Fiyat</th>
+                                    <th rowspan="1" colspan="1" aria-sort="ascending" style="width: 144px;">KDV Yüzdesi</th>
+                               
+
+                            </thead>
+                            <tbody>
+                                @if (list == null)
+                                {
+                                    <tr>Sistemde Kayıtlı Ürün Bulunmamaktadır..</tr>
+                                }
+                                else
+                                {
+                                    foreach (var item in list)
                                     {
-                                        <tr>Sistemde Kayıtlı Ürün Bulunmamaktadır..</tr>
+                                        <tr>
+                                            <td>@item.ID</td>
+                                            <td>@item.FaturaID</td>
+                                            <td>@item.Urun.UrunAdi</td>
+                                            <td>@item.Miktar</td>
+
+                                            <td>@item.BirimFiyat</td>
+                                            <td>@item.KdvMiktar</td>
+
+                                        </tr>
                                     }
-                                    else
-                                    {
-                                        foreach (var item in list)
-                                        {
-                                            <tr>
-                                                <td>@item.ID</td>
-                                                <td>@item.FaturaID</td>
-                                                <td>@item.Urun.UrunAdi</td>
-                                                <td>@item.Miktar</td>
-
-                                                <td>@item.BirimFiyat</td>
-                                                <td>@item.KdvMiktar</td>
-
-                                            </tr>
-                                        }
-                                    }
-                                </tbody>
+                                }
+                            </tbody>
 
 
-                            </table>
-                        </div>
+                        </table>
                     </div>
                 </div>
-
             </div>
+
         </div>
-   
+    </div>
+
 </body>
 
 

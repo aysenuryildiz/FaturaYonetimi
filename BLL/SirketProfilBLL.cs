@@ -1,13 +1,13 @@
-﻿using DataEntities;
+﻿using Entities;
 using DAL;
 namespace BLL
 {
-    public class SirketProfil_BLL
+    public class SirketProfilBLL
     {
-        SirketProfil_DAL sirketDAL;
-        public SirketProfil_BLL()
+        SirketProfilDAL sirketDAL;
+        public SirketProfilBLL()
         {
-            sirketDAL = new SirketProfil_DAL();
+            sirketDAL = new SirketProfilDAL();
         }
         public SirketProfil SirketGetir(int id, FaturaYonetimiDbModel db)
         {

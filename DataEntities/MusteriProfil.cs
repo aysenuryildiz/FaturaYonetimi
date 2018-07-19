@@ -1,4 +1,4 @@
-namespace DataEntities
+namespace Entities
 {
     using System;
     using System.Collections.Generic;
@@ -19,21 +19,24 @@ namespace DataEntities
 
         [Required]
         [StringLength(50)]
+        [RegularExpression(@"^[a-zA-Z]+$", ErrorMessage = "Use letters only please")]
         public string Ad { get; set; }
 
         [Required]
         [StringLength(50)]
         public string Soyad { get; set; }
+
         [Required]
+        [StringLength(50)]
         public string Telefon { get; set; }
 
         [Required]
         [StringLength(50)]
         public string Adres { get; set; }
-        [Required]
+
         [Column(TypeName = "money")]
         public decimal? Alacak { get; set; }
-        [Required]
+
         [Column(TypeName = "money")]
         public decimal? Borc { get; set; }
 

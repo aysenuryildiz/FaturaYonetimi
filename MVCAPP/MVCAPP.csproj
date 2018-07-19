@@ -143,6 +143,7 @@
       <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Activities" />
     <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Buffers.4.5.0\lib\netstandard2.0\System.Buffers.dll</HintPath>
     </Reference>
@@ -260,6 +261,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MusteriProfilController.cs" />
     <Compile Include="Controllers\StokHareketleriController.cs" />
+    <Compile Include="Controllers\StokTakibiController.cs" />
     <Compile Include="Controllers\UrunController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -278,6 +280,9 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Gridmvc.css" />
     <Content Include="Content\image\background\error-bg.jpg" />
+    <Content Include="Content\image\bereket-text.png" />
+    <Content Include="Content\image\bereket.png" />
+    <Content Include="Content\image\brkt-enerji-logo1.png" />
     <Content Include="Content\image\custom-select.png" />
     <Content Include="Content\image\eliteadmin-logo.png" />
     <Content Include="Content\image\eliteadmin-small-text.png" />
@@ -295,6 +300,9 @@
     <Content Include="Content\image\users\6.jpg" />
     <Content Include="Content\image\users\7.jpg" />
     <Content Include="Content\image\users\8.jpg" />
+    <Content Include="Content\sweetalert\sweetalert.css" />
+    <Content Include="Content\sweetalert\sweetalert.js" />
+    <Content Include="Content\sweetalert\sweetalert.min.js" />
     <Content Include="Content\Template\c3.min.css" />
     <Content Include="Content\Template\dashboard1.css" />
     <Content Include="Content\Template\font-awesome.min.css" />
@@ -347,6 +355,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\MySweetAlert\UrunAlert.js" />
     <Content Include="Scripts\npm.js" />
     <Content Include="Scripts\popper-utils.js" />
     <Content Include="Scripts\popper-utils.min.js" />
@@ -358,7 +367,6 @@
     <Content Include="Scripts\Template\c3.min.js" />
     <Content Include="Scripts\Template\custom.min.js" />
     <Content Include="Scripts\Template\d3.min.js" />
-    <Content Include="Scripts\Template\dashboard1.js" />
     <Content Include="Scripts\Template\jquery-3.2.1.min.js" />
     <Content Include="Scripts\Template\jquery.sparkline.min.js" />
     <Content Include="Scripts\Template\maskedinput-binder.js" />
@@ -401,8 +409,6 @@
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
     <Content Include="Views\MusteriProfil\MusteriOlustur.cshtml" />
-    <Content Include="Views\Fatura\Print.cshtml" />
-    <Content Include="Views\Fatura\EditFatura.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Home\Admin.cshtml" />
@@ -411,6 +417,8 @@
     <Content Include="Views\Shared\_GridPager.cshtml" />
     <Content Include="Views\Shared\_Grid.cshtml" />
     <Content Include="Views\Shared\_LayoutPage1.cshtml" />
+    <Content Include="Views\Fatura\Details.cshtml" />
+    <Content Include="Views\StokTakibi\StokDurumListesi.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -431,9 +439,9 @@
       <Project>{634ae118-96c4-4f83-a764-baa958a4cf73}</Project>
       <Name>DAL</Name>
     </ProjectReference>
-    <ProjectReference Include="..\DataEntities\DataEntities.csproj">
-      <Project>{9bd06e43-94f6-4ee0-adda-8954826227a6}</Project>
-      <Name>DataEntities</Name>
+    <ProjectReference Include="..\Entities\Entities.csproj">
+      <Project>{10314a60-737d-4f90-8b95-7121d9067c1d}</Project>
+      <Name>Entities</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

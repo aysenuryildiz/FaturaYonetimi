@@ -1,5 +1,5 @@
 ﻿using BLL;
-using DataEntities;
+using Entities;
 using System.Web.Mvc;
 namespace MVCAPP.Controllers
 {
@@ -15,7 +15,7 @@ namespace MVCAPP.Controllers
         [Authorize]
         public ActionResult MusteriOlustur(MusteriProfil musteri)
         {
-            Musteri_BLL musteri_BLL = new Musteri_BLL();
+            MusteriBLL musteri_BLL = new MusteriBLL();
             //var resultCustomValidation = obj.Dogrula(musteri);
             //if(resultCustomValidation != null)
             //{
@@ -48,17 +48,80 @@ namespace MVCAPP.Controllers
             return View();
         }
 
-        public ActionResult MusteriSil(int id)
+        //public ActionResult MusteriSil(int id)
+        //{
+        //    MusteriBLL musteri_BLL = new MusteriBLL();
+        //    if (musteri_BLL.MusteriSil(id))
+        //    {
+        //        return RedirectToAction("MusteriListesi");
+        //    }
+        //    else
+        //    {
+        //        return RedirectToAction("MusteriListesi");
+        //    }
+        //}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        public bool MusteriSil(int id)
         {
-            Musteri_BLL musteri_BLL = new Musteri_BLL();
+            MusteriBLL musteri_BLL = new MusteriBLL();
             if (musteri_BLL.MusteriSil(id))
             {
-                return RedirectToAction("MusteriListesi");
+                return false;
             }
             else
             {
-                return RedirectToAction("MusteriListesi");
+                return true;
             }
         }
+
+        public JsonResult Delete(int ID)
+        {
+            bool silindiMi = MusteriSil(ID);
+            var data = 0;
+            if (silindiMi)
+            {
+                //silindi
+                data = 1;
+                return Json(data, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                data = 0;
+                return Json(data, JsonRequestBehavior.AllowGet);
+
+            }
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
     }
 }

@@ -47,6 +47,8 @@
             type: 'POST',
             url: "/Fatura/SaveOrder",
             data: data,
+
+            
             success: function (result) {
                 alert("kaydetme başarılı");
                 if (result.code === 1) {

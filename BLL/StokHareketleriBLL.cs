@@ -1,15 +1,15 @@
 ﻿using DAL;
 using System.Collections.Generic;
-using DataEntities;
+using Entities;
 
 namespace BLL
 {
-    public class StokHareketleri_BLL
+    public class StokHareketleriBLL
     {
-        StokHareketleri_DAL StokHareketleriDAL;
-        public StokHareketleri_BLL()
+        StokHareketleriDAL StokHareketleriDAL;
+        public StokHareketleriBLL()
         {
-            StokHareketleriDAL = new StokHareketleri_DAL();
+            StokHareketleriDAL = new StokHareketleriDAL();
         }
         public void StokHareketleriKaydet(ICollection<StokHareketleri> stokHareketleriListesi, FaturaYonetimiDbModel db)
         {
@@ -22,7 +22,7 @@ namespace BLL
                 stokHareketleri.BirimFiyat = item.BirimFiyat;
                 stokHareketleri.KdvMiktar = item.KdvMiktar;
 
-                StokHareketleriDAL.Add(stokHareketleri, db);
+                //StokHareketleriDAL.Add(stokHareketleri, db);
             }
         }
     }

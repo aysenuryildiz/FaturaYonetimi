@@ -1,22 +1,27 @@
 ﻿using DAL;
-using DataEntities;
+using Entities;
 using System;
 using System.Collections.Generic;
 namespace BLL
 {
-    public class Fatura_BLL
+    public class FaturaBLL
     {
-        Fatura_DAL faturaDAL;
-        public Fatura_BLL()
+        FaturaDAL faturaDAL;
+        #region CTor
+        public FaturaBLL()
         {
-            faturaDAL = new Fatura_DAL();
+            faturaDAL = new FaturaDAL();
         }
+        #endregion
+        #region public Fatura Kaydet
+
+
         public string FaturaKaydet(FaturaArguman faturaArguman)
         {
             string mesaj = "";
-            StokHareketleri_BLL stokHareketleriBLL = new StokHareketleri_BLL();
-            StokTakibi_BLL stokTakibiBLL = new StokTakibi_BLL();
-            Musteri_BLL musteriBLL = new Musteri_BLL();
+            StokHareketleriBLL stokHareketleriBLL = new StokHareketleriBLL();
+            StokTakibiBLL stokTakibiBLL = new StokTakibiBLL();
+            MusteriBLL musteriBLL = new MusteriBLL();
 
             using (FaturaYonetimiDbModel db = new FaturaYonetimiDbModel())
             {
@@ -27,7 +32,7 @@ namespace BLL
 
                         var faturaModel = GetFaturaFromArgumant(faturaArguman);
                         var borcKontrol = MusteriBorcKontrolu(faturaModel, db);
-                        
+
                         if (borcKontrol)
                         {
                             stokHareketleriBLL.StokHareketleriKaydet(faturaModel.StokHareketleri, db);
@@ -35,7 +40,8 @@ namespace BLL
                             musteriBLL.MusteriAlacakBorcDurumu(faturaModel, faturaModel.MusteriD, db);
                             stokTakibiBLL.StokDurumuGuncelle(faturaModel, faturaModel.StokHareketleri, db);
                             faturaDAL.Add(faturaModel, db);
-                            mesaj = StructManager.SUCCESS_MESSAGE;
+                            mesaj = "müşterinin borcu fazla olduğu için kayıt edilemedi";
+                            //mesaj = StructManager.SUCCESS_MESSAGE;
                         }
                         else
                         {
@@ -50,6 +56,9 @@ namespace BLL
                 return mesaj;
             }
         }
+        #endregion
+        #region Fatura Tutar Hesapla
+
         /// <summary>FATURANIN ARA TOPLAM,KDV TOPLAM,GENEL TOPLAMININ HESAPLANMASI
         /// <paramref name="model">ARATOPLAM,KDVTOPLAM VE GENELTOPLAMIN HANGİ MODELE SEÇ EDİLECEĞİ</paramref> 
         /// <paramref name="stokHareketleriListesi"> FATURAYA AİT STOK HAREKETLERİ LİSTESİ </paramref>  
@@ -77,11 +86,22 @@ namespace BLL
                 model.GenelToplam = faturaGenelToplam;
             }
         }
+        #endregion
+        #region Fatura GetByID
+
+        public Fatura GetFatura(int id)
+        {
+            var faturaModel = faturaDAL.GetById(id);
+            return faturaModel;
+        }
+        #endregion
+        #region Musteri Borc Kontrolü
+
         public bool MusteriBorcKontrolu(Fatura model, FaturaYonetimiDbModel db)
         {
             var borcLimit = GetBorcLimit();
 
-            Musteri_BLL musteriBLL = new Musteri_BLL();
+            MusteriBLL musteriBLL = new MusteriBLL();
             MusteriProfil musteriProfil = musteriBLL.MusteriGetir(model.MusteriD, db);
             if ((musteriProfil.Borc - musteriProfil.Alacak) > borcLimit)
             {
@@ -93,6 +113,8 @@ namespace BLL
                 return true;
             }
         }
+        #endregion
+        #region  Int32 GetBorcLimit()
 
         private Int32 GetBorcLimit()
         {
@@ -100,6 +122,8 @@ namespace BLL
             var borcLimit = string.IsNullOrEmpty(borcLimitString) ? 100000000 : Convert.ToInt32(borcLimitString);
             return borcLimit;
         }
+        #endregion
+        #region Fatura GetFaturaFromArgumant
 
         public Fatura GetFaturaFromArgumant(FaturaArguman faturaArguman)
         {
@@ -111,5 +135,6 @@ namespace BLL
             model.StokHareketleri = faturaArguman.stokHareketleriListesi;
             return model;
         }
+        #endregion
     }
 }
